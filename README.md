@@ -29,6 +29,9 @@ Composed of:
 - Light mode toggler
 - Links to: Home, Favs.
 
+##### View Toggler
+List and Grid buttons.
+
 #### Pokemon list
 Composed of:
 - Single pokemon basic data
