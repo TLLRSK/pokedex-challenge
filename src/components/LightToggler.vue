@@ -2,7 +2,7 @@
     <div>Light Toggler</div>
 </template>
 <script>
-    export default {
-        
-    }
+export default {
+    
+}
 </script>
