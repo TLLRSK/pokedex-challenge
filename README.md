@@ -82,3 +82,4 @@ Storing each marked pokemon in a state and rendering them when user is at Favour
 
 
 ## Journal
+- Found an error (cannot access before initialization) importing components from index.js, fixed by sorting the way files are exported.
