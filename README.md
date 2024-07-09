@@ -83,3 +83,16 @@ Storing each marked pokemon in a state and rendering them when user is at Favour
 
 ## Journal
 - Found an error (cannot access before initialization) importing components from index.js, fixed by sorting the way files are exported.
+- Found problems trying to fetch some single pokemons with this method:
+    1. Get all pokemons: "https://pokeapi.co/api/v2/pokedex/6/"
+    2. This will return each single pokemon data with this format, e.g:
+    {
+      "entry_number": 4,
+      "pokemon_species": {
+        "name": "chimchar",
+        "url": "https://pokeapi.co/api/v2/pokemon-species/390/"
+      }
+    },
+    3. If I use the name for fetching like "https://pokeapi.co/api/v2/pokemon/giratina" some pokemons are not found.
+    4. Instead of that, I've tried to use the id in the url (390 in this case) by splitting it from the string.
+    5. And it worked.
