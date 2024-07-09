@@ -1,3 +1,7 @@
+// Icons
+export { default as Light } from '../components/icons/Light.vue';
+export { default as Dark } from '../components/icons/Dark.vue';
+// Components
 export { default as LightToggler } from '../components/LightToggler.vue';
 export { default as Nav } from '../components/Nav.vue';
 export { default as TopBar } from '../components/TopBar.vue';
