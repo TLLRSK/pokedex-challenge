@@ -1,5 +1,5 @@
 <template>
-    <ul>
+    <ul class="flex flex-col p-3 gap-3">
         <pokemon-list-item
             v-for="(pokemonData, index) in pokedexData"
             :pokemonData="pokemonData"
