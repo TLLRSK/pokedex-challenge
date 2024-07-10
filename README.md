@@ -13,7 +13,7 @@ With this project I'll try to learn/practice/improve my knowledge of:
 Design made with Figma. Contains two views: Home and Favs. Designed for mobile, tablet and desktop.
 
 ### HOME
-Must show only the 151 Sinnoh's Pokemon.
+Must show only the 210 Sinnoh's Pokemon.
 Url with info about pokemons: https://www.wikidex.net/wiki/Lista_de_Pok%C3%A9mon_seg%C3%BAn_la_Pok%C3%A9dex_de_Sinnoh
 Pokeapi documentation about pokedexes endpoint: https://pokeapi.co/docs/v2#utility-section
 
