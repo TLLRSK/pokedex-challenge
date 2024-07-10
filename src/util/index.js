@@ -3,6 +3,7 @@ export { default as Light } from '../components/icons/Light.vue';
 export { default as Dark } from '../components/icons/Dark.vue';
 export { default as Grid } from '../components/icons/Grid.vue';
 export { default as List } from '../components/icons/List.vue';
+export { default as MenuIcon } from '../components/icons/MenuIcon.vue';
 
 // Components
 export { default as LightToggler } from '../components/LightToggler.vue';
