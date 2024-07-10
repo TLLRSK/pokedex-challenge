@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const typeColors = ['normal','rock','ground','dark','poison','psychic','fairy','fire','fighting','electric','grass','bug','steel','ice','flying','water',
+const typeColors = ['normal','rock','ground','dark', 'ghost', 'poison','psychic','fairy','fire','fighting','electric','grass','bug','steel','ice','flying','water',
 'dragon']
 
 const safeColors = typeColors.flatMap((color) => `bg-${color}`);
@@ -21,6 +21,7 @@ export default {
         'rock': '#94887C',
         'ground': '#A76427',
         'dark': '#5E413A',
+        'ghost': '#742F80',
         'poison': '#9F00B9',
         'psychic': '#FB39B9',
         'fairy': '#FF87E5',
