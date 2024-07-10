@@ -1,8 +1,17 @@
 <template>
     <nav>
-        <menu-icon/>
-        <a href="">Home</a>
-        <a href="">Favs</a>
+        <label for="menu-toggler" class="m:hidden">
+            <input 
+                class="absolute appearance-none"
+                type="checkbox" 
+                name="menu-toggler" 
+                id="menu-toggler">
+            <menu-icon/>
+        </label>
+        <ul class="hidden m:flex m:gap-3">
+            <a href="">Home</a>
+            <a href="">Favs</a>
+        </ul>
     </nav>
 </template>
 
