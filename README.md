@@ -96,3 +96,6 @@ Storing each marked pokemon in a state and rendering them when user is at Favour
     3. If I use the name for fetching like "https://pokeapi.co/api/v2/pokemon/giratina" some pokemons are not found.
     4. Instead of that, I've tried to use the id in the url (390 in this case) by splitting it from the string.
     5. And it worked.
+
+- Found a problem trying to apply dynamic classes to pokemon's type elements. Tailwind CSS uses static classes so you just can't use them dynamically. Found a solution in the following article:
+https://medium.com/@achronus/solving-a-niche-frontend-problem-dynamic-tailwind-css-classes-in-react-da5f513ecf6a

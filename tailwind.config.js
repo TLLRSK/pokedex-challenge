@@ -1,7 +1,14 @@
 /** @type {import('tailwindcss').Config} */
+
+const typeColors = ['normal','rock','ground','dark','poison','psychic','fairy','fire','fighting','electric','grass','bug','steel','ice','flying','water',
+'dragon']
+
+const safeColors = typeColors.flatMap((color) => `bg-${color}`);
+
 export default {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: 'media',
+  safelist: [...safeColors],
   theme: {
     extend: {
       colors: {
@@ -18,7 +25,7 @@ export default {
         'psychic': '#FB39B9',
         'fairy': '#FF87E5',
         'fire': '#F03226',
-        'fight': '#F98D29',
+        'fighting': '#F98D29',
         'electric': '#F1D900',
         'grass': '#41D229',
         'bug': '#629422',
