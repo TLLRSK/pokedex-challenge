@@ -1,23 +1,23 @@
 <template>
     <ul>
-        <li v-for="(pokemon, index) in pokedexData" :key="index">
-            <img :src="pokemon.sprites.front_default" alt="">
-            <span>{{pokemon.id}}</span>
-            <span>{{pokemon.name}}</span>
-            <div>
-                <span v-for="type in pokemon.types" :key="type">
-                {{type.type.name}}
-                </span>
-            </div>
-        </li>
+        <pokemon-list-item
+            v-for="(pokemonData, index) in pokedexData"
+            :pokemonData="pokemonData"
+            :key="index"
+        />
     </ul>
 </template>
 <script>
+import {PokemonListItem} from "../util/index.js"
     export default {
         props: {
             pokedexData: {
                 type: Array,
+                required: true,
             }
+        },
+        components: {
+            PokemonListItem,
         }
         
     }
