@@ -50,6 +50,16 @@ export default {
         '5': '32px',
         '6': '180px',
       },
+      borderRadius: {
+        '0': '4px',
+        '1': '6px',
+        '2': '8px',
+        '3': '12px',
+        '4': '24px',
+      },
+      boxShadow: {
+        'gray-100': '0px 0px 6px 0px rgba(169,169,169,1)',
+      },
       screens: {
         'm': '480px',
         'm': '720px',
