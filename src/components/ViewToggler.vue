@@ -21,7 +21,7 @@
                     id="list" 
                     name="viewType" 
                     value="list">
-                <span>View</span>
+                <span>List</span>
             </label>
         </div>
     </div>
