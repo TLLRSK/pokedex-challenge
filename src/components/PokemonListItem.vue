@@ -1,10 +1,10 @@
 <template>
     <li>
-        <img :src="pokemonData.sprites.front_default" alt="">
-        <span>{{pokemonData.id}}</span>
-        <span>{{pokemonData.name}}</span>
+        <img :src="data.sprites.front_default" :alt="data.name">
+        <span>{{data.id}}</span>
+        <span>{{data.name}}</span>
         <div>
-            <span v-for="type in pokemonData.types" :key="type">
+            <span v-for="type in data.types" :key="type">
             {{type.type.name}}
             </span>
         </div>
@@ -21,11 +21,8 @@
         },
         data() {
             return {
-                pokemon: this.pokemonData,
+                data: this.pokemonData,
             }
         },
-        mounted() {
-            console.log(this.pokemonData)
-        }
     }
 </script>
