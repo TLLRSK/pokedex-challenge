@@ -95,8 +95,5 @@
                 return `bg-${typeName}`;
             }
         },
-        mounted() {
-            console.log(this.currentView)
-        }
     }
 </script>
