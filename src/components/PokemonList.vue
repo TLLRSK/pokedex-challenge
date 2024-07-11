@@ -1,6 +1,5 @@
 <template>
-    <ul 
-        :class="setViewClass">
+    <ul :class="setViewClass" class="flex-1">
         <pokemon-list-item
             v-for="(pokemonData, index) in currentPokemons"
             :pokemonData="pokemonData"
@@ -28,8 +27,8 @@ import {PokemonListItem} from "../util/index.js"
         computed: {
             setViewClass() {
                 return [
-                    {'flex flex-col p-3 gap-3': this.currentView === 'list'},
-                    {'flex flex-col m:grid m:grid-cols-2 l:grid-cols-3 p-3 gap-3': this.currentView === 'grid'}
+                    {'flex flex-col px-3 gap-3': this.currentView === 'list'},
+                    {'flex flex-col m:grid m:grid-cols-2 l:grid-cols-3 px-3 gap-3': this.currentView === 'grid'}
                 ]
             }
         }

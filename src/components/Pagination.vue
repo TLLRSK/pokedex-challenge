@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center gap-0">
+    <div class="flex justify-center gap-0 py-3">
         <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-100" 
             @click="pagePrev"
             :disabled="disabledPrev">

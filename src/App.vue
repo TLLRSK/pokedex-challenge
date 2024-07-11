@@ -1,6 +1,6 @@
 <template>
   <top-bar/>
-  <main>
+  <main class="flex flex-col min-h-[calc(100dvh)]">
     <view-toggler />
     <pokemon-list :currentPokemons="currentPokemons" :currentView="this.currentView"/>
     <pokemon-card/>

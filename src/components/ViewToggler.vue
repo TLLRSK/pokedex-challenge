@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end gap-3">
+  <div class="flex justify-end gap-3 p-3">
     <span>View:</span>
     <div class="flex gap-3">
       <label v-for="(view, index) in views" :key="index" :for="view.name" class="viewOption">
