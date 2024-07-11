@@ -3,7 +3,7 @@
 const typeColors = ['normal','rock','ground','dark', 'ghost', 'poison','psychic','fairy','fire','fighting','electric','grass','bug','steel','ice','flying','water',
 'dragon']
 
-const safeColors = typeColors.flatMap((color) => `bg-${color}`);
+const safeColors = typeColors.flatMap((color) => [`bg-${color}`, `text-${color}`]);
 
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
@@ -14,8 +14,9 @@ export default {
       colors: {
         'main': '#FFFFFF',
         'gray-0': '#FAFAFA',
-        'gray-100': '#A9A9A9',
-        'gray-200': '#7B7B7B',
+        'gray-100': '#E1E1E1',
+        'gray-200': '#A9A9A9',
+        'gray-300': '#7B7B7B',
         'secondary': '#000000',
         'normal': '#A9A9A9',
         'rock': '#94887C',
