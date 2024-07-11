@@ -2,7 +2,7 @@
     <ul 
         :class="setViewClass">
         <pokemon-list-item
-            v-for="(pokemonData, index) in pokedexData"
+            v-for="(pokemonData, index) in currentPokemons"
             :pokemonData="pokemonData"
             :key="index"
             :currentView="this.currentView"
@@ -13,7 +13,7 @@
 import {PokemonListItem} from "../util/index.js"
     export default {
         props: {
-            pokedexData: {
+            currentPokemons: {
                 type: Array,
                 required: true,
             },
@@ -24,11 +24,6 @@ import {PokemonListItem} from "../util/index.js"
         },
         components: {
             PokemonListItem,
-        },
-        data() {
-            return {
-                view: this.currentView,
-            }
         },
         computed: {
             setViewClass() {

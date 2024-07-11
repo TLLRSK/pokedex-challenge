@@ -2,10 +2,10 @@
   <top-bar/>
   <main>
     <view-toggler />
-    <pokemon-list :pokedexData="this.pokedexData" :currentView="this.currentView"/>
+    <pokemon-list :currentPokemons="currentPokemons" :currentView="this.currentView"/>
     <pokemon-card/>
   </main>
-  <pagination/>
+  <pagination :pages="totalPages" :currentPage="currentPage" @page-changed="changePage"/>
 </template>
 <script>
 import { markRaw } from 'vue';
@@ -50,6 +50,21 @@ export default {
           icon: markRaw(List),
         },
       ],
+      pages: 5,
+      currentPage: 1,
+      pokemonsPerPage: 30,
+    }
+  },
+  computed: {
+    totalPages() {
+      const totalPages = Math.ceil(this.pokedexData.length / this.pokemonsPerPage);
+      return totalPages;
+    },
+    currentPokemons() {
+      const start = (this.currentPage - 1) * this.pokemonsPerPage;
+      const end = start + this.pokemonsPerPage;
+      const currentPokemons = this.pokedexData.slice(start, end);
+      return currentPokemons;
     }
   },
   methods: {
@@ -79,11 +94,13 @@ export default {
     },
     setView(selectedView) {
       this.currentView = selectedView;
+    },
+    changePage(page) {
+      this.currentPage = page;
     }
   },
   mounted() {
     this.fetchData();
-  }
-
+  },
 }
 </script>

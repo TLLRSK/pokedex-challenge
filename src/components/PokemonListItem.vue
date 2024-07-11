@@ -5,18 +5,18 @@
     >
         <img 
             :class="setImgClass" 
-            :src="data.sprites.front_default" 
-            :alt="data.name">
+            :src="pokemonData.sprites.front_default" 
+            :alt="pokemonData.name">
 
         <div :class="setInfoClass">
             <div :class="setMainInfoClass">
-                <span class="text-sm">Nº {{data.id}}</span>
-                <span class="text-sm uppercase">{{data.name}}</span>
+                <span class="text-sm">Nº {{pokemonData.id}}</span>
+                <span class="text-sm uppercase">{{pokemonData.name}}</span>
             </div>
 
             <div :class="setTypesClass">
                 <div 
-                    v-for="(type, index) in data.types"
+                    v-for="(type, index) in pokemonData.types"
                     :class="[showTypes(type), setTypeClass]"
                     :key="index">
                     <span :class="setTypeSpanClass">
@@ -38,11 +38,6 @@
             currentView: {
                 type: String,
                 required: true,
-            }
-        },
-        data() {
-            return {
-                data: this.pokemonData,
             }
         },
         computed: {
