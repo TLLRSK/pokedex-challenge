@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center gap-3">
+    <div class="flex justify-center gap-0">
         <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-100" 
             @click="pagePrev"
             :disabled="disabledPrev">
@@ -43,6 +43,7 @@
         methods: {
             changePage(page) {
                 this.$emit('page-changed', page)
+                window.scrollTo(0, 0)
             },
             pagePrev() {
                 this.changePage(this.currentPage - 1);
