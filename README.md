@@ -140,6 +140,6 @@ Link: https://reintech.io/blog/working-with-dynamic-components-in-vuejs
 Link:
 https://www.reddit.com/r/vuejs/comments/13rl6ms/best_way_to_pass_data_when_dealing_with_deeply/
 
-- Found problems implementing classes in PokemonListItem depending on PokemonList view classes. Found a solution in configuring variants, but I'll try first a more simple solution using props and methods for returning the right classes.
+- Found problems implementing classes in PokemonListItem depending on PokemonList view classes. Found a solution at configuring variants, but I'll try first a more simple solution using Vue props and computed.
 
 Link: https://v2.tailwindcss.com/docs/configuring-variants.
