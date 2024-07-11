@@ -32,6 +32,13 @@ Composed of:
 ##### View Toggler
 List and Grid buttons.
 
+1. Set 'grid' as current view by default
+2. Style selected input
+3. Send input value from ViewToggler to App
+4. Change App currentView value
+5. Change PokemonList style
+6. Change PokemonListItem style
+
 #### Pokemon list
 Composed of:
 - Single pokemon basic data
@@ -99,3 +106,40 @@ Storing each marked pokemon in a state and rendering them when user is at Favour
 
 - Found a problem trying to apply dynamic classes to pokemon's type elements. Tailwind CSS uses static classes so you just can't use them dynamically. Found a solution in the following article:
 https://medium.com/@achronus/solving-a-niche-frontend-problem-dynamic-tailwind-css-classes-in-react-da5f513ecf6a
+
+- Found some problems implementing the ViewToggler component at passing a custom component from App this way:
+views: [
+        {
+          name: 'grid',
+          icon: Grid,
+        },
+        {
+          name: 'list',
+          icon: List,
+        },
+      ],
+
+Then it appeared a warning message on console suggesting to mark the comopnent with markRaw or use shalowRef. I solved by changing views to this:
+
+views: [
+        {
+          name: 'grid',
+          icon: markRaw(Grid),
+        },
+        {
+          name: 'list',
+          icon: markRaw(List),
+        },
+      ],
+
+Link: https://reintech.io/blog/working-with-dynamic-components-in-vuejs
+
+
+- Found problems trying to pass data between App and PokemonList for classes toggling purpose. Tried provide/inject and data is passed correctly at first time, but when I change currentView from ViewToggler, the new view's value doesn't change accordingly. Seems that provide/inject isn't reactive, so I just passed the prop directly and it worked.
+
+Link:
+https://www.reddit.com/r/vuejs/comments/13rl6ms/best_way_to_pass_data_when_dealing_with_deeply/
+
+- Found problems implementing classes in PokemonListItem depending on PokemonList view classes. Found a solution in configuring variants, but I'll try first a more simple solution using props and methods for returning the right classes.
+
+Link: https://v2.tailwindcss.com/docs/configuring-variants.

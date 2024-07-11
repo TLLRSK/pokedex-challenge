@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    /* View Toggler */
+    .viewOption {
+        @apply flex items-center gap-1 px-1 rounded-0 cursor-pointer;
+    }
+    .viewOption:has(input:checked) {
+        @apply bg-gray-200 text-main
+    }
+}

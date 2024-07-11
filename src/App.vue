@@ -1,19 +1,22 @@
 <template>
   <top-bar/>
   <main>
-    <view-toggler/>
-    <pokemon-list :pokedexData="this.pokedexData"/>
+    <view-toggler />
+    <pokemon-list :pokedexData="this.pokedexData" :currentView="this.currentView"/>
     <pokemon-card/>
   </main>
   <pagination/>
 </template>
 <script>
+import { markRaw } from 'vue';
 import {
   TopBar, 
   Pagination, 
   PokemonCard, 
   PokemonList, 
-  ViewToggler
+  ViewToggler,
+  List,
+  Grid,
 } from './util/index.js';
 
 export default {
@@ -23,10 +26,30 @@ export default {
     PokemonCard,
     Pagination,
     ViewToggler,
+    List,
+    Grid,
+  },
+  provide() {
+    return {
+      currentView: this.currentView,
+      views: this.views,
+      selectView: this.setView,
+    }
   },
   data() {
     return {
       pokedexData: [],
+      currentView: 'list',
+      views: [
+        {
+          name: 'grid',
+          icon: markRaw(Grid),
+        },
+        {
+          name: 'list',
+          icon: markRaw(List),
+        },
+      ],
     }
   },
   methods: {
@@ -53,6 +76,9 @@ export default {
       } catch (error) {
         throw error;
       }
+    },
+    setView(selectedView) {
+      this.currentView = selectedView;
     }
   },
   mounted() {

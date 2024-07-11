@@ -6,7 +6,7 @@ const typeColors = ['normal','rock','ground','dark', 'ghost', 'poison','psychic'
 const safeColors = typeColors.flatMap((color) => `bg-${color}`);
 
 export default {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: 'media',
   safelist: [...safeColors],
   theme: {

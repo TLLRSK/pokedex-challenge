@@ -1,19 +1,28 @@
 <template>
-    <li class="flex items-center gap-3 rounded-2 bg-main shadow-gray-100">
-        <img class="w-[80px] h-[80px]" :src="data.sprites.front_default" :alt="data.name">
-        <div class="flex gap-3">
-            <span class="text-sm">Nº {{data.id}}</span>
-            <span class="text-sm uppercase">{{data.name}}</span>
-        </div>
-        <div class="flex gap-2 pr-3 ml-auto">
-            <div 
-                v-for="(type, index) in data.types"
-                :class="showTypes(type)"
-                class="w-3 h-3 m:w-auto m:h-auto px-0 text-main rounded-full m:rounded-1 uppercase text-m"
-                :key="index">
-                <span class="hidden m:block font-regular">
-                    {{type.type.name}}
-                </span>
+    <li 
+        :class="setItemClass"
+        class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray-100"
+    >
+        <img 
+            :class="setImgClass" 
+            :src="data.sprites.front_default" 
+            :alt="data.name">
+
+        <div :class="setInfoClass">
+            <div :class="setMainInfoClass">
+                <span class="text-sm">Nº {{data.id}}</span>
+                <span class="text-sm uppercase">{{data.name}}</span>
+            </div>
+
+            <div :class="setTypesClass">
+                <div 
+                    v-for="(type, index) in data.types"
+                    :class="[showTypes(type), setTypeClass]"
+                    :key="index">
+                    <span :class="setTypeSpanClass">
+                        {{type.type.name}}
+                    </span>
+                </div>
             </div>
         </div>
         <!-- <button>Select pokemon</button> -->
@@ -25,11 +34,59 @@
             pokemonData: {
                 type: Object,
                 required: true,
+            },
+            currentView: {
+                type: String,
+                required: true,
             }
         },
         data() {
             return {
                 data: this.pokemonData,
+            }
+        },
+        computed: {
+            setItemClass() {
+                return [
+                    {'flex items-center p-1': this.currentView === 'list'},
+                    {'flex p-2': this.currentView === 'grid'},
+                ]
+            },
+            setImgClass() {
+                return [
+                    {'w-[40px] h-[40px]': this.currentView === 'list'},
+                    {'w-[80px] h-[80px]': this.currentView === 'grid'},
+                ]
+            },
+            setInfoClass() {
+                return [
+                    {'flex flex-1 gap-3': this.currentView === 'list'},
+                    {'flex flex-col gap-3': this.currentView === 'grid'},
+                ]
+            },
+            setMainInfoClass() {
+                return [
+                    {'flex gap-3': this.currentView === 'list'},
+                    {'flex flex-col gap-0': this.currentView === 'grid'},
+                ]
+            },
+            setTypesClass() {
+                return [
+                    {'flex gap-2 ml-auto': this.currentView === 'list'},
+                    {'flex gap-2': this.currentView === 'grid'},
+                ]
+            },
+            setTypeClass() {
+                return [
+                    {'w-3 h-3 m:w-auto m:h-auto px-0 text-main rounded-full m:rounded-1 uppercase text-sm': this.currentView === 'list'},
+                    {'w-auto h-auto px-0 text-main rounded-full m:rounded-1 uppercase text-sm': this.currentView === 'grid'},
+                ]
+            },
+            setTypeSpanClass() {
+                return [
+                    {'hidden m:block text-sm font-regular': this.currentView === 'list'},
+                    {'text-sm font-regular': this.currentView === 'grid'},
+                ]
             }
         },
         methods: {
@@ -38,5 +95,8 @@
                 return `bg-${typeName}`;
             }
         },
+        mounted() {
+            console.log(this.currentView)
+        }
     }
 </script>
