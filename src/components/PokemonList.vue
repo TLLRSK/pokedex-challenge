@@ -1,5 +1,5 @@
 <template>
-    <ul :class="setViewClass" class="flex-1">
+    <ul :class="setViewClass" class="w-full xl:w-[calc(100%-372px)]">
         <pokemon-list-item
             v-for="(pokemonData, index) in currentPokemons"
             :pokemonData="pokemonData"

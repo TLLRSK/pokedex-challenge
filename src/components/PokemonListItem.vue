@@ -1,7 +1,7 @@
 <template>
     <li 
         :class="setItemClass"
-        class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray-100"
+        class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray-100 relative"
     >
         <img 
             :class="setImgClass" 
@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <!-- <button>Select pokemon</button> -->
+        <button class="absolute inset-[0]" @click="selectPokemon(pokemonData)"></button>
     </li> 
 </template>
 <script>
@@ -40,6 +40,7 @@
                 required: true,
             }
         },
+        inject: ['selectPokemon'],
         computed: {
             setItemClass() {
                 return [
