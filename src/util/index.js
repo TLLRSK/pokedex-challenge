@@ -4,6 +4,9 @@ export { default as Dark } from '../components/icons/Dark.vue';
 export { default as Grid } from '../components/icons/Grid.vue';
 export { default as List } from '../components/icons/List.vue';
 export { default as MenuIcon } from '../components/icons/MenuIcon.vue';
+export { default as Pokeball } from '../components/icons/Pokeball.vue';
+export { default as Fav } from '../components/icons/Fav.vue';
+export { default as Close } from '../components/icons/Close.vue';
 
 // Components
 export { default as LightToggler } from '../components/LightToggler.vue';
