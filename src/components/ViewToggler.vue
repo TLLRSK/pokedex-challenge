@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-end gap-3 p-3">
     <span>View:</span>
-    <div class="flex gap-3">
+    <div class="flex gap-1">
       <label v-for="(view, index) in views" :key="index" :for="view.name" class="viewOption">
         <component :is="view.icon" class="w-3 h-3" />
         <input 
