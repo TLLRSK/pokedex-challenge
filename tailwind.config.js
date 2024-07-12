@@ -50,7 +50,7 @@ export default {
         '3': '16px',
         '4': '24px',
         '5': '32px',
-        '6': '180px',
+        '6': '64px',
       },
       borderRadius: {
         '0': '4px',
@@ -60,13 +60,14 @@ export default {
         '4': '24px',
       },
       boxShadow: {
-        'gray-100': '0px 0px 6px 0px rgba(169,169,169,1)',
+        'gray-200': '0px 0px 6px 0px',
+        'gray-300': '0px 0px 6px 0px',
       },
       screens: {
-        'm': '480px',
+        'sm': '480px',
         'm': '720px',
         'l': '1024px',
-        'xl': '1920px',
+        'xl': '1280px',
       },
     },
   },
