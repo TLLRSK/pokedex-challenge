@@ -11,7 +11,7 @@
         <div :class="setInfoClass">
             <div :class="setMainInfoClass">
                 <span class="text-sm">Nº {{pokemonData.id}}</span>
-                <span class="text-sm uppercase">{{pokemonData.name}}</span>
+                <span class="text-sm uppercase font-bold">{{pokemonData.name}}</span>
             </div>
 
             <div :class="setTypesClass">
