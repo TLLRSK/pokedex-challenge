@@ -71,22 +71,28 @@ Composed of:
 - Next and previous page buttons
 - Indexed page button
 
-1. After fetching all pokemons, get the quantity of pages by dividing all pokemons amount by the pokemons displayed at each page.
+1. After fetching all pokemons, get the amount of pages by dividing all pokemons amount by the pokemonsPerPage value at each page. Then round with Math.ceil.
 2. Wether user is at first or last page, don't display the prev or next button.
 3. Show a max amount of pokemon per page.
 
 ##### 3. Show a max amount of pokemon per page.
 - Set current page number.
 - Set max amount of pokemons per page.
-- Get first and last pokemon using current page and max amount values then split the array with all pokemons.
+- Get first and last pokemon using current page and max amount values then slice the array with all pokemons.
 - Render by mapping the new array.
 
 ### FAVOURITES
 Showing marked as favourite pokemons
 
-Storing each marked pokemon in a state and rendering them when user is at Favourites page.
+
 * Use local storage.
 
+1. Check if there are fav pokemons in localStorage.
+2. If there are fav pokemons, parse JSON and save them into data()
+3. Pass fav pokemons to Fav view as prop.
+4. On showing selected pokemon at PokemonCard, check if pokemon is in fav pokemons list using it's ID.
+5. Change fav button style depending on listed/non listed condition.
+6. When clicking on pokemon card, add or remove pokemon from fav pokemons list using it's ID.
 
 ## Journal
 - Found an error (cannot access before initialization) importing components from index.js, fixed by sorting the way files are exported.
@@ -143,3 +149,5 @@ https://www.reddit.com/r/vuejs/comments/13rl6ms/best_way_to_pass_data_when_deali
 - Found problems implementing classes in PokemonListItem depending on PokemonList view classes. Found a solution at configuring variants, but I'll try first a more simple solution using Vue props and computed.
 
 Link: https://v2.tailwindcss.com/docs/configuring-variants.
+
+- Found an issue trying to re-render current pokemons list using props stored in data(). Values stored in data() ARE NOT REACTIVE. Solved passing them directly as prop.
