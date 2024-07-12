@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center gap-0 py-3">
-        <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-100" 
+        <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200" 
             @click="pagePrev"
             :disabled="disabledPrev">
             Prev
@@ -8,12 +8,12 @@
         <button 
             v-for="page in pages" 
             :key="page"
-            :class="[{'bg-gray-100 text-main': this.currentPage === page}]"
+            :class="[{'bg-gray-300 text-main': this.currentPage === page}]"
             class="px-1 align-center text-sm rounded-3"
             @click="changePage(page)">
             {{page}}
         </button>
-        <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-100" 
+        <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200" 
             @click="pageNext"
             :disabled="disabledNext">
             Next
