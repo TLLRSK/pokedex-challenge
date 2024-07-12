@@ -10,6 +10,7 @@
         :isSelectedPokemon="this.isSelectedPokemon"
         :selectedPokemon="this.selectedPokemon"
         :favouritePokemons="this.favouritePokemons"
+        :isFaved="this.isFaved"
         @toggle-favourite="updateFavPokemons"
         @unselect-pokemon="unselectPokemon"/>
     </section>
@@ -66,6 +67,7 @@ export default {
       isSelectedPokemon: false,
       selectedPokemon: {},
       favouritePokemons: [],
+      isFaved: false,
     }
   },
   computed: {
@@ -111,6 +113,7 @@ export default {
     selectPokemon(pokemonData) {
       this.selectedPokemon = pokemonData;
       this.isSelectedPokemon = true;
+      this.toggleFaved();
     },
     unselectPokemon() {
       this.isSelectedPokemon = false;
@@ -123,12 +126,15 @@ export default {
       if (favPokemons) {
         this.favouritePokemons = JSON.parse(favPokemons);
       }
-      console.log(JSON.parse(favPokemons))
     },
     updateFavPokemons(togglingPokemon) {
       const index = this.favouritePokemons.findIndex((pokemon) => pokemon.id === togglingPokemon.id);
       index !== -1 ? this.favouritePokemons.splice(index, 1) : this.favouritePokemons.push(togglingPokemon)
+      this.toggleFaved();
       this.saveFavPokemons();
+    },
+    toggleFaved() {
+      this.isFaved = this.favouritePokemons.some((pokemon) => pokemon.id === this.selectedPokemon.id)
     },
     changePage(page) {
       this.currentPage = page;

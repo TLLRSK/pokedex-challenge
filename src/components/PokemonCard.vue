@@ -5,7 +5,7 @@
         <div v-if="isSelectedPokemon" class="w-full p-3 flex flex-col m:flex-row xl:flex-col bg-main xl:rounded-4 z-10">
             <div class="flex justify-between absolute left-3 right-3 z-20">
                 <button @click="toggleFavourite(selectedPokemon)">
-                    <fav/>
+                    <fav :class="favedClasses"/>
                 </button>
                 <button @click="this.unselectPokemon">
                     <close/>
@@ -76,6 +76,10 @@ import {Fav, Close, Pokeball} from "../util/index.js";
             favouritePokemons: {
                 type: Array,
                 required: true,
+            },
+            isFaved: {
+                type: Boolean,
+                required: true,
             }
         },
         data() {
@@ -93,6 +97,11 @@ import {Fav, Close, Pokeball} from "../util/index.js";
         computed: {
             mainType() {
                 return this.selectedPokemon.types[0].type.name;
+            },
+            favedClasses() {
+                return [
+                    {'text-fire fill-fire': this.isFaved === true }
+                ]
             }
         },
         methods: {
@@ -106,7 +115,7 @@ import {Fav, Close, Pokeball} from "../util/index.js";
             },
             unselectPokemon() {
                 this.$emit('unselect-pokemon');
-            }
+            },
         }
     }
 </script>
