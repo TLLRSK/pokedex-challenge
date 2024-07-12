@@ -1,9 +1,9 @@
 <template>
-    <article class="w-full flex justify-center fixed xl:w-[312px] xl:h-[588px] xl:sticky bottom-[0] xl:bottom-4 xl:border-[2px] border-main border-3 rounded-4">
+    <article class="w-full flex justify-center fixed xl:w-[312px] xl:h-[590px] xl:sticky bottom-[0] xl:bottom-4 xl:border-[2px] border-main border-3 xl:rounded-4">
         <pokeball class="hidden w-[240px] h-[240px] text-main absolute top-[60px] xl:block rotate-[24deg]"/>
 
-        <div v-if="isSelectedPokemon" class="w-full p-3 bg-main rounded-4 z-10">
-            <div class="flex justify-between">
+        <div v-if="isSelectedPokemon" class="w-full p-3 flex flex-col m:flex-row xl:flex-col bg-main xl:rounded-4 z-10">
+            <div class="flex justify-between absolute left-3 right-3 z-20">
                 <button>
                     <fav/>
                 </button>
@@ -12,15 +12,14 @@
                 </button>
             </div>
 
-            <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center m:mt-4 m:ml-[8%] xl:m-[0]">
                 <pokeball :class="['absolute w-[240px] h-[240px] opacity-50 rotate-[24deg]', `text-${mainType}`]"/>
                 <img 
                 class="w-[280px] h-[280px] m-auto z-10"
                 :src="selectedPokemon.sprites.other['official-artwork'].front_default" :alt="selectedPokemon.name">
             </div>
 
-            <div class="flex flex-col gap-3">
-
+            <div class="flex flex-1 flex-col gap-3 m:mt-4 m:mr-[8%]">
                 <div class="flex items-center justify-between">
                     <h4 class="w-fit text-l font-semibold capitalize rounded-4">
                         {{selectedPokemon.name}}
