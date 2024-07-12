@@ -47,6 +47,7 @@ export default {
   data() {
     return {
       pokedexData: [],
+      favouritePokemon: [],
       currentView: 'list',
       views: [
         {
@@ -62,85 +63,7 @@ export default {
       currentPage: 1,
       pokemonsPerPage: 30,
       isSelectedPokemon: false,
-      selectedPokemon: {
-        "id": '999',
-        "name": 'giraita',
-        "sprites": {
-          "back_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/487.png",
-          "other": {
-            "official-artwork": {
-              "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/487.png",
-              "front_shiny": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/487.png"
-            },
-          },
-        },
-        "stats": [
-          {
-            "base_stat": 150,
-            "effort": 3,
-            "stat": {
-              "name": "hp",
-              "url": "https://pokeapi.co/api/v2/stat/1/"
-            }
-          },
-          {
-            "base_stat": 100,
-            "effort": 0,
-            "stat": {
-              "name": "attack",
-              "url": "https://pokeapi.co/api/v2/stat/2/"
-            }
-          },
-          {
-            "base_stat": 120,
-            "effort": 0,
-            "stat": {
-              "name": "defense",
-              "url": "https://pokeapi.co/api/v2/stat/3/"
-            }
-          },
-          {
-            "base_stat": 100,
-            "effort": 0,
-            "stat": {
-              "name": "special-attack",
-              "url": "https://pokeapi.co/api/v2/stat/4/"
-            }
-          },
-          {
-            "base_stat": 120,
-            "effort": 0,
-            "stat": {
-              "name": "special-defense",
-              "url": "https://pokeapi.co/api/v2/stat/5/"
-            }
-          },
-          {
-            "base_stat": 90,
-            "effort": 0,
-            "stat": {
-              "name": "speed",
-              "url": "https://pokeapi.co/api/v2/stat/6/"
-            }
-          }
-        ],
-        "types": [
-          {
-            "slot": 1,
-            "type": {
-              "name": "ghost",
-              "url": "https://pokeapi.co/api/v2/type/8/"
-            }
-          },
-          {
-            "slot": 2,
-            "type": {
-              "name": "dragon",
-              "url": "https://pokeapi.co/api/v2/type/16/"
-            }
-          }
-        ],
-      },
+      selectedPokemon: {},
     }
   },
   computed: {
