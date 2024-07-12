@@ -2,7 +2,7 @@
   <top-bar/>
   <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-100">
     <view-toggler />
-    <section class="flex items-end">
+    <section class="flex items-end xl:px-6">
       <pokemon-list 
         :currentPokemons="currentPokemons" 
         :currentView="this.currentView"/>
