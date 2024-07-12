@@ -93,6 +93,10 @@ Showing marked as favourite pokemons
 4. On showing selected pokemon at PokemonCard, check if pokemon is in fav pokemons list using it's ID.
 5. Change fav button style depending on listed/non listed condition.
 6. When clicking on pokemon card, add or remove pokemon from fav pokemons list using it's ID.
+  - Use findIndex() for checking if that pokemon exists in the list and it's index in the array.
+  - If it's in the array use the index for splice it.
+  - If it's not in the array push into it.
+  Link: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex
 
 ## Journal
 - Found an error (cannot access before initialization) importing components from index.js, fixed by sorting the way files are exported.
