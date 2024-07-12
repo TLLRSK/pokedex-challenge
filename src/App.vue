@@ -9,6 +9,8 @@
       <pokemon-card 
         :isSelectedPokemon="this.isSelectedPokemon"
         :selectedPokemon="this.selectedPokemon"
+        :favouritePokemons="this.favouritePokemons"
+        @toggle-favourite="updateFavPokemons"
         @unselect-pokemon="unselectPokemon"/>
     </section>
     <pagination :pages="totalPages" :currentPage="currentPage" @page-changed="changePage"/>
@@ -47,7 +49,6 @@ export default {
   data() {
     return {
       pokedexData: [],
-      favouritePokemon: [],
       currentView: 'list',
       views: [
         {
@@ -64,6 +65,7 @@ export default {
       pokemonsPerPage: 30,
       isSelectedPokemon: false,
       selectedPokemon: {},
+      favouritePokemons: [],
     }
   },
   computed: {
@@ -113,12 +115,28 @@ export default {
     unselectPokemon() {
       this.isSelectedPokemon = false;
     },
+    saveFavPokemons() {
+      localStorage.setItem('favPokemons', JSON.stringify(this.favouritePokemons))
+    },
+    loadFavPokemons() {
+      const favPokemons = localStorage.getItem('favPokemons');
+      if (favPokemons) {
+        this.favouritePokemons = JSON.parse(favPokemons);
+      }
+      console.log(JSON.parse(favPokemons))
+    },
+    updateFavPokemons(togglingPokemon) {
+      const index = this.favouritePokemons.findIndex((pokemon) => pokemon.id === togglingPokemon.id);
+      index !== -1 ? this.favouritePokemons.splice(index, 1) : this.favouritePokemons.push(togglingPokemon)
+      this.saveFavPokemons();
+    },
     changePage(page) {
       this.currentPage = page;
     }
   },
   mounted() {
     this.fetchData();
+    this.loadFavPokemons();
   },
 }
 </script>

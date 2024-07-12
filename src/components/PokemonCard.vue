@@ -4,7 +4,7 @@
 
         <div v-if="isSelectedPokemon" class="w-full p-3 flex flex-col m:flex-row xl:flex-col bg-main xl:rounded-4 z-10">
             <div class="flex justify-between absolute left-3 right-3 z-20">
-                <button>
+                <button @click="toggleFavourite(selectedPokemon)">
                     <fav/>
                 </button>
                 <button @click="this.unselectPokemon">
@@ -72,6 +72,10 @@ import {Fav, Close, Pokeball} from "../util/index.js";
             isSelectedPokemon: {
                 type: Boolean,
                 required: true,
+            },
+            favouritePokemons: {
+                type: Array,
+                required: true,
             }
         },
         data() {
@@ -96,6 +100,9 @@ import {Fav, Close, Pokeball} from "../util/index.js";
                 const maxValue = 255
                 const statPercent = (Number(statValue) * 100)/maxValue
                 return statPercent + '%';
+            },
+            toggleFavourite(pokemon) {
+                this.$emit('toggle-favourite', pokemon)
             },
             unselectPokemon() {
                 this.$emit('unselect-pokemon');
