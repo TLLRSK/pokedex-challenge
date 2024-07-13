@@ -12,8 +12,7 @@
     <button
       v-for="page in totalPages"
       :key="page"
-      :class="[{ 'bg-gray-dark text-main': this.currentPage === page }]"
-      class="px-1 align-center text-secondary text-sm rounded-3"
+      :class="getButtonClasses(page)"
       @click="changePage(page)"
     >
       {{ page }}
@@ -37,8 +36,7 @@ export default {
   name: "Pagination",
   setup() {
 
-    const { pokedexData, currentPage, pokemonsPerPage, changePage } =
-      inject("appData");
+    const { pokedexData, currentPage, pokemonsPerPage, changePage } = inject("appData");
 
     const totalPages = computed(() => {
       return Math.ceil(pokedexData.value.length / pokemonsPerPage);
@@ -60,6 +58,13 @@ export default {
       return currentPage.value === totalPages.value;
     });
 
+    const getButtonClasses = (page) => {
+      return [
+        'px-1 align-center text-sm rounded-3',
+        currentPage.value === page ? 'text-main bg-gray-dark' : 'text-secondary'
+      ];
+    };
+
     return {
       totalPages,
       currentPage,
@@ -68,6 +73,7 @@ export default {
       pageNext,
       disabledPrev,
       disabledNext,
+      getButtonClasses,
     };
   },
 };
