@@ -20,11 +20,8 @@ export default {
     const { currentPokemons, currentView } = inject("appData");
     const setViewClass = computed(() => {
       return [
-        { "flex flex-col px-3 gap-3": currentView.value === "list" },
-        {
-          "flex flex-col m:grid m:grid-cols-2 l:grid-cols-3 px-3 gap-3":
-            currentView.value === "grid",
-        },
+        'flex flex-col px-3 gap-3',
+        { 'm:grid m:grid-cols-2 l:grid-cols-3' : currentView.value === "grid" },
       ];
     });
     return { currentPokemons, currentView, setViewClass };
