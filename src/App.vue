@@ -117,6 +117,7 @@ export default {
 
     const changePage = (page) => {
       currentPage.value = page;
+      window.scrollTo(0, 0);
     };
 
     // Pokemon Card
