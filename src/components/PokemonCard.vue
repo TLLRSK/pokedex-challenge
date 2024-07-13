@@ -61,11 +61,11 @@
             :key="index"
             class="flex w-full"
           >
-            <span class="w-[20%] text-sm text-gray-300 font-bold">{{
+            <span class="w-[20%] text-sm text-gray-dark font-bold">{{
               statsMap[stat.stat.name]
             }}</span>
-            <div class="flex-1 bg-gray-100 rounded-4 overflow-hidden relative">
-              <span class="absolute right-1 text-sm">{{ stat.base_stat }}</span>
+            <div class="flex-1 bg-gray-light rounded-4 overflow-hidden relative">
+              <span class="absolute right-1 text-sm text-secondary">{{ stat.base_stat }}</span>
               <div
                 :style="{ width: getStatPercent(stat.base_stat) }"
                 :class="[`h-full bg-${mainType}`]"

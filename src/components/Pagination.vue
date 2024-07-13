@@ -2,7 +2,7 @@
   <div class="flex justify-center gap-0 py-3">
 
     <button
-      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200"
+      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent text-secondary disabled:text-gray-mid"
       @click="pagePrev"
       :disabled="disabledPrev"
     >
@@ -12,15 +12,15 @@
     <button
       v-for="page in totalPages"
       :key="page"
-      :class="[{ 'bg-gray-300 text-main': this.currentPage === page }]"
-      class="px-1 align-center text-sm rounded-3"
+      :class="[{ 'bg-gray-dark text-main': this.currentPage === page }]"
+      class="px-1 align-center text-secondary text-sm rounded-3"
       @click="changePage(page)"
     >
       {{ page }}
     </button>
 
     <button
-      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200"
+      class="px-1 align-center text-secondary text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200"
       @click="pageNext"
       :disabled="disabledNext"
     >

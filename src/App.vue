@@ -1,7 +1,7 @@
 <template>
   <top-bar />
 
-  <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-100">
+  <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-light">
     <view-toggler />
 
     <section class="flex items-end xl:justify-center xl:px-6 xl:gap-3">
@@ -38,17 +38,23 @@ export default {
   },
   setup() {
     // Light Toggling
-    let lightMode = ref(true);
+    let darkMode = ref(false);
 
-    const toggleLightMode = () => {
-      lightMode.value = !lightMode.value;
+    const toggleDarkMode = () => {
+      console.log("darkmode: ", darkMode.value)
+      darkMode.value = !darkMode.value;
 
-      if (!lightMode.value) {
+      if (darkMode.value) {
         document.documentElement.classList.add("dark");
       } else {
         document.documentElement.classList.remove("dark");
       }
     };
+
+    const userColorSchemePreference = () => {
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      darkMode.value = prefersDarkScheme;
+    }
 
     // Views
     const views = ref([
@@ -173,13 +179,14 @@ export default {
     onMounted(() => {
       fetchData();
       loadFavourites();
+      userColorSchemePreference();
     });
 
     provide("appData", {
       pokedexData,
       currentPokemons,
-      lightMode,
-      toggleLightMode,
+      darkMode,
+      toggleDarkMode,
       views,
       currentView,
       setView,

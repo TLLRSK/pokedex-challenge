@@ -4,11 +4,11 @@
       type="checkbox"
       id="light-toggler"
       class="appearance-none absolute"
-      :checked="lightMode"
-      @change="toggleLightMode"
+      :checked="darkMode"
+      @change="toggleDarkMode"
     />
 
-    <Light v-if="lightMode" />
+    <Light v-if="!darkMode" />
     <Dark v-else />
   </label>
 </template>
@@ -24,9 +24,9 @@ export default {
     Dark,
   },
   setup() {
-    const { lightMode, toggleLightMode } = inject("appData");
+    const { darkMode, toggleDarkMode } = inject("appData");
 
-    return { lightMode, toggleLightMode };
+    return { darkMode, toggleDarkMode };
   },
 };
 </script>

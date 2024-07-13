@@ -1,7 +1,7 @@
 <template>
 <li 
 :class="setItemClass"
-class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray-200 relative"
+class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray relative"
 >
     <img 
     :class="setImgClass" 

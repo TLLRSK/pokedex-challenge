@@ -3,12 +3,19 @@
 @tailwind utilities;
 @layer base {
     :root {
-        --main: #FFFFFF;
+        /* Basic */
+        --white: #FFFFFF;
+        --black: #000000;
+
+        /* Grays */
         --gray-0: #FAFAFA;
         --gray-100: #E1E1E1;
         --gray-200: #A9A9A9;
         --gray-300: #7B7B7B;
-        --secondary: #000000;
+        --gray-400: #3f3f3f;
+        --gray-500: #303030;
+
+        /* Pokemon types */
         --normal: #A9A9A9;
         --rock: #94887C;
         --ground: #A76427;
@@ -19,7 +26,7 @@
         --fairy: #FF87E5;
         --fire: #F03226;
         --fighting: #F98D29;
-        --electric: #F1D900;
+        --electric: #e0d100;
         --grass: #41D229;
         --bug: #629422;
         --steel: #58A6A6;
@@ -27,6 +34,32 @@
         --flying: #6BBEEC;
         --water: #0091E2;
         --dragon: #3E51FD;
+
+        /* Light theme */
+        --main: var(--white);
+        --secondary: var(--black);
+        --gray-light: var(--gray-100);
+        --gray-mid: var(--gray-200);
+        --gray-dark: var(--gray-300);
+        --shadow-color: var(--gray-300);
+    }
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --main: var(--gray-100);
+            --secondary: var(--gray-0);
+            --gray-light: var(--gray-300);
+            --gray-mid: var(--gray-200);
+            --gray-dark: var(--gray-500);
+            --shadow-color: var(--gray-400);
+            }
+    }
+    .dark {
+        --main: var(--gray-100);
+        --secondary: var(--gray-0);
+        --gray-light: var(--gray-300);
+        --gray-mid: var(--gray-200);
+        --gray-dark: var(--gray-500);
+        --shadow-color: var(--gray-400);
     }
 }
 @layer components {
@@ -35,6 +68,9 @@
         @apply flex items-center gap-1 px-1 rounded-0 cursor-pointer;
     }
     .viewOption:has(input:checked) {
-        @apply bg-gray-300 text-main
+        @apply bg-gray-dark text-main
+    }
+    .dark .viewOption {
+        @apply text-secondary;
     }
 }
