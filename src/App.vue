@@ -1,35 +1,32 @@
 <template>
-  <top-bar/>
+  <top-bar />
+
   <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-100">
     <view-toggler />
+
     <section class="flex items-end xl:justify-center xl:px-6 xl:gap-3">
-      <pokemon-list 
-        :currentPokemons="currentPokemons" 
-        :currentView="this.currentView"/>
-      <pokemon-card 
-        :isSelectedPokemon="this.isSelectedPokemon"
-        :selectedPokemon="this.selectedPokemon"
-        :favouritePokemons="this.favouritePokemons"
-        :isFaved="this.isFaved"
-        @toggle-favourite="updateFavPokemons"
-        @unselect-pokemon="unselectPokemon"/>
+      <pokemon-list />
+      <pokemon-card />
     </section>
-    <pagination :pages="totalPages" :currentPage="currentPage" @page-changed="changePage"/>
+
+    <pagination />
   </main>
 </template>
+
 <script>
-import { markRaw } from 'vue';
+import { computed, markRaw, onMounted, provide, ref } from "vue";
 import {
-  TopBar, 
-  Pagination, 
+  TopBar,
+  Pagination,
   PokemonCard,
-  PokemonList, 
+  PokemonList,
   ViewToggler,
   List,
   Grid,
-} from './util/index.js';
+} from "./util/index.js";
 
 export default {
+  name: "App",
   components: {
     TopBar,
     PokemonList,
@@ -39,110 +36,164 @@ export default {
     List,
     Grid,
   },
-  provide() {
-    return {
-      currentView: this.currentView,
-      views: this.views,
-      selectView: this.setView,
-      selectPokemon: this.selectPokemon,
-    }
-  },
-  data() {
-    return {
-      pokedexData: [],
-      currentView: 'list',
-      views: [
-        {
-          name: 'grid',
-          icon: markRaw(Grid),
-        },
-        {
-          name: 'list',
-          icon: markRaw(List),
-        },
-      ],
-      pages: 5,
-      currentPage: 1,
-      pokemonsPerPage: 30,
-      isSelectedPokemon: false,
-      selectedPokemon: {},
-      favouritePokemons: [],
-      isFaved: false,
-    }
-  },
-  computed: {
-    totalPages() {
-      const totalPages = Math.ceil(this.pokedexData.length / this.pokemonsPerPage);
-      return totalPages;
-    },
-    currentPokemons() {
-      const start = (this.currentPage - 1) * this.pokemonsPerPage;
-      const end = start + this.pokemonsPerPage;
-      const currentPokemons = this.pokedexData.slice(start, end);
-      return currentPokemons;
-    }
-  },
-  methods: {
-    async fetchData() {
-      const baseUrl = "https://pokeapi.co/api/v2/pokedex/6/"
+  setup() {
+    // Light Toggling
+    let lightMode = ref(true);
+
+    const toggleLightMode = () => {
+      lightMode.value = !lightMode.value;
+
+      if (!lightMode.value) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    };
+
+    // Views
+    const views = ref([
+      {
+        name: "grid",
+        icon: markRaw(Grid),
+      },
+      {
+        name: "list",
+        icon: markRaw(List),
+      },
+    ]);
+
+    const currentView = ref("grid");
+
+    const setView = (selectedView) => {
+      currentView.value = selectedView;
+    };
+
+    // Pokemon data
+    const pokedexData = ref([]);
+
+    const fetchData = async () => {
+      const baseUrl = "https://pokeapi.co/api/v2/pokedex/6/";
+
       try {
         const data = await fetch(baseUrl);
         const response = await data.json();
 
-        const allPokemonData = await Promise.all(response.pokemon_entries.map(async(pokemonEntry) => {
-          const pokemonUrl = await pokemonEntry.pokemon_species.url;
-          const splittedId = pokemonUrl.split('/').filter(blank => blank).pop()
-          const url = `https://pokeapi.co/api/v2/pokemon/${splittedId}`
-          try {
-            const data = await fetch(url);
-            const response = await data.json();
-            return response;
-          } catch(error) {
-            throw error;
-          }
-        }))
-        
-        this.pokedexData = allPokemonData;
+        const allPokemonData = await Promise.all(
+          response.pokemon_entries.map(async (pokemonEntry) => {
+            const pokemonUrl = await pokemonEntry.pokemon_species.url;
+            const splittedId = pokemonUrl
+              .split("/")
+              .filter((blank) => blank)
+              .pop();
+            const url = `https://pokeapi.co/api/v2/pokemon/${splittedId}`;
+
+            try {
+              const data = await fetch(url);
+              const response = await data.json();
+              return response;
+            } catch (error) {
+              throw error;
+            }
+          })
+        );
+
+        pokedexData.value = allPokemonData;
       } catch (error) {
         throw error;
       }
-    },
-    setView(selectedView) {
-      this.currentView = selectedView;
-    },
-    selectPokemon(pokemonData) {
-      this.selectedPokemon = pokemonData;
-      this.isSelectedPokemon = true;
-      this.toggleFaved();
-    },
-    unselectPokemon() {
-      this.isSelectedPokemon = false;
-    },
-    saveFavPokemons() {
-      localStorage.setItem('favPokemons', JSON.stringify(this.favouritePokemons))
-    },
-    loadFavPokemons() {
-      const favPokemons = localStorage.getItem('favPokemons');
+    };
+
+    const currentPokemons = computed(() => {
+      const start = (currentPage.value - 1) * pokemonsPerPage;
+      const end = start + pokemonsPerPage;
+      const currents = pokedexData.value.slice(start, end);
+
+      return currents;
+    });
+
+    // Pagination
+    const currentPage = ref(1);
+    const pokemonsPerPage = 30;
+
+    const changePage = (page) => {
+      currentPage.value = page;
+    };
+
+    // Pokemon Card
+    const isSelectedPokemon = ref(false);
+    const selectedPokemon = ref({});
+    const isFaved = ref(false);
+
+    const selectPokemon = (pokemonData) => {
+      selectedPokemon.value = pokemonData;
+      isSelectedPokemon.value = true;
+
+      toggleFavourite(pokemonData);
+    };
+
+    const unselectPokemon = () => {
+      isSelectedPokemon.value = false;
+    };
+
+    // Favourites
+    const favourites = ref([]);
+
+    const loadFavourites = () => {
+      const favPokemons = localStorage.getItem("favPokemons");
+
       if (favPokemons) {
-        this.favouritePokemons = JSON.parse(favPokemons);
+        favourites.value = JSON.parse(favPokemons);
       }
-    },
-    updateFavPokemons(togglingPokemon) {
-      const index = this.favouritePokemons.findIndex((pokemon) => pokemon.id === togglingPokemon.id);
-      index !== -1 ? this.favouritePokemons.splice(index, 1) : this.favouritePokemons.push(togglingPokemon)
-      this.toggleFaved();
-      this.saveFavPokemons();
-    },
-    toggleFaved() {
-      this.isFaved = this.favouritePokemons.some((pokemon) => pokemon.id === this.selectedPokemon.id)
-    },
-    changePage(page) {
-      this.currentPage = page;
-    }
+    };
+
+    const saveFavourites = () => {
+      localStorage.setItem("favPokemons", JSON.stringify(favourites.value));
+    };
+
+    const toggleFavourite = (pokemonData) => {
+      isFaved.value = favourites.value.some(
+        (pokemon) => pokemon.id === pokemonData.id
+      );
+    };
+
+    const updateFavourites = (pokemonData) => {
+      const index = favourites.value.findIndex(
+        (pokemon) => pokemon.id === pokemonData.id
+      );
+
+      index !== -1
+        ? favourites.value.splice(index, 1)
+        : favourites.value.push(pokemonData);
+
+      toggleFavourite(pokemonData);
+      saveFavourites();
+    };
+
+    onMounted(() => {
+      fetchData();
+      loadFavourites();
+    });
+
+    provide("appData", {
+      pokedexData,
+      currentPokemons,
+      lightMode,
+      toggleLightMode,
+      views,
+      currentView,
+      setView,
+      currentPage,
+      changePage,
+      pokemonsPerPage,
+      selectPokemon,
+      isSelectedPokemon,
+      unselectPokemon,
+      selectedPokemon,
+      toggleFavourite,
+      favourites,
+      isFaved,
+      updateFavourites,
+    });
   },
-  mounted() {
-    this.fetchData();
-    this.loadFavPokemons();
-  },
-}
+};
 </script>

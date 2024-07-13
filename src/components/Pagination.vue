@@ -1,56 +1,74 @@
 <template>
-    <div class="flex justify-center gap-0 py-3">
-        <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200" 
-            @click="pagePrev"
-            :disabled="disabledPrev">
-            Prev
-        </button>
-        <button 
-            v-for="page in pages" 
-            :key="page"
-            :class="[{'bg-gray-300 text-main': this.currentPage === page}]"
-            class="px-1 align-center text-sm rounded-3"
-            @click="changePage(page)">
-            {{page}}
-        </button>
-        <button class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200" 
-            @click="pageNext"
-            :disabled="disabledNext">
-            Next
-        </button>
-    </div>
+  <div class="flex justify-center gap-0 py-3">
+
+    <button
+      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200"
+      @click="pagePrev"
+      :disabled="disabledPrev"
+    >
+      Prev
+    </button>
+
+    <button
+      v-for="page in totalPages"
+      :key="page"
+      :class="[{ 'bg-gray-300 text-main': this.currentPage === page }]"
+      class="px-1 align-center text-sm rounded-3"
+      @click="changePage(page)"
+    >
+      {{ page }}
+    </button>
+
+    <button
+      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200"
+      @click="pageNext"
+      :disabled="disabledNext"
+    >
+      Next
+    </button>
+    
+  </div>
 </template>
+
 <script>
-    export default {
-        props: {
-            pages: {
-                type: Number,
-                required: true,
-            },
-            currentPage: {
-                type: Number,
-                required: true,
-            }
-        },
-        computed: {
-            disabledPrev() {
-                return this.currentPage === 1;
-            },
-            disabledNext() {
-                return this.currentPage === this.pages;
-            },
-        },
-        methods: {
-            changePage(page) {
-                this.$emit('page-changed', page)
-                window.scrollTo(0, 0)
-            },
-            pagePrev() {
-                this.changePage(this.currentPage - 1);
-            },
-            pageNext() {
-                this.changePage(this.currentPage + 1);
-            },
-        }
-    }
+import { computed, inject } from "vue";
+
+export default {
+  name: "Pagination",
+  setup() {
+
+    const { pokedexData, currentPage, pokemonsPerPage, changePage } =
+      inject("appData");
+
+    const totalPages = computed(() => {
+      return Math.ceil(pokedexData.value.length / pokemonsPerPage);
+    });
+
+    const pagePrev = () => {
+      changePage(currentPage.value - 1);
+    };
+
+    const pageNext = () => {
+      changePage(currentPage.value + 1);
+    };
+
+    const disabledPrev = computed(() => {
+      return currentPage.value === 1;
+    });
+
+    const disabledNext = computed(() => {
+      return currentPage.value === totalPages.value;
+    });
+
+    return {
+      totalPages,
+      currentPage,
+      changePage,
+      pagePrev,
+      pageNext,
+      disabledPrev,
+      disabledNext,
+    };
+  },
+};
 </script>
