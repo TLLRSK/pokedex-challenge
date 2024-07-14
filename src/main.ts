@@ -9,6 +9,8 @@ const router = createRouter({
     routes: [
         {path: '/', component: Home},
         {path: '/favs', component: Favs},
+        {path: '/pokedex/page-:page', component: Home},
+        {path: '/favs/page-:page', component: Favs},
     ]
 });
 

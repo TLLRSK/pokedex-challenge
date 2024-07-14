@@ -31,6 +31,7 @@
 
 <script>
 import { computed, inject, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 
 export default {
   name: "Pagination",
@@ -41,6 +42,9 @@ export default {
     }
   },
   setup(props) {
+
+    const router = useRouter();
+    const route = useRoute();
 
     const { currentPage, pokemonsPerPage } = inject("appData");
 
@@ -65,6 +69,10 @@ export default {
     });
 
     const changePage = (page) => {
+      const currentPath = route.path === '/' ? '/pokedex' : route.path;
+      const basePath = currentPath.split('/page-')[0]
+      const urlString = `${basePath}/page-${page}`;
+      router.push(urlString)
       currentPage.value = page;
       window.scrollTo(0, 0);
     };
