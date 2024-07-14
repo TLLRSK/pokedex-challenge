@@ -100,6 +100,7 @@ Showing marked as favourite pokemons
 
 ## Journal
 - Found an error (cannot access before initialization) importing components from index.js, fixed by sorting the way files are exported.
+
 - Found problems trying to fetch some single pokemons with this method:
     1. Get all pokemons: "https://pokeapi.co/api/v2/pokedex/6/"
     2. This will return each single pokemon data with this format, e.g:
@@ -112,9 +113,11 @@ Showing marked as favourite pokemons
     },
     3. If I use the name for fetching like "https://pokeapi.co/api/v2/pokemon/giratina" some pokemons are not found.
     4. Instead of that, I've tried to use the id in the url (390 in this case) by splitting it from the string.
-    5. And it worked.
+    5. It worked.
 
-- Found a problem trying to apply dynamic classes to pokemon's type elements. Tailwind CSS uses static classes so you just can't use them dynamically. Found a solution in the following article:
+Creating safeColors:
+- Found a problem trying to apply dynamic classes to pokemon's type elements. Tailwind CSS uses static classes so you just can't use them dynamically.
+Found a solution in the following article:
 https://medium.com/@achronus/solving-a-niche-frontend-problem-dynamic-tailwind-css-classes-in-react-da5f513ecf6a
 
 - Found some problems implementing the ViewToggler component at passing a custom component from App this way:
@@ -144,14 +147,55 @@ views: [
 
 Link: https://reintech.io/blog/working-with-dynamic-components-in-vuejs
 
-
+Inject/Provide
 - Found problems trying to pass data between App and PokemonList for classes toggling purpose. Tried provide/inject and data is passed correctly at first time, but when I change currentView from ViewToggler, the new view's value doesn't change accordingly. Seems that provide/inject isn't reactive, so I just passed the prop directly and it worked.
 
 Link:
 https://www.reddit.com/r/vuejs/comments/13rl6ms/best_way_to_pass_data_when_dealing_with_deeply/
 
+Setting groups of dynamic classes
 - Found problems implementing classes in PokemonListItem depending on PokemonList view classes. Found a solution at configuring variants, but I'll try first a more simple solution using Vue props and computed.
 
 Link: https://v2.tailwindcss.com/docs/configuring-variants.
 
 - Found an issue trying to re-render current pokemons list using props stored in data(). Values stored in data() ARE NOT REACTIVE. Solved passing them directly as prop.
+
+From Options API to Composition API 😭
+- After trying different ideas to avoid prop drilling, I decided to migrate the whole app to Composition API:
+Links:
+https://vuejs.org/guide/components/provide-inject
+https://www.codemag.com/Article/2101091/The-Complete-Guide-to-Provide-Inject-API-in-Vue-3-Part-1
+
+
+Light mode with Tailwind CSS using css variables and user color scheme preference:
+Links:
+https://invertase.io/blog/tailwind-dark-mode
+https://www.sitepoint.com/theming-tailwind-css-variables-clean-architecture/
+
+Vue Router
+https://router.vuejs.org/
+
+Check: Differences between 'ref' and 'reactive'. pokedexData and pokedexData.value
+
+favPokemons exceeded the quota
+Found that localStorage has a limit number of 29 items. For now keeping pagination on Favs looks useless but I'll keep it anyway.
+
+Closing Menu on clicking outside
+- Found problems trying to make the menu toggler closing when clicking outside. After thinking looking for some examples, I tried to:
+1. Change input checkbox to button.
+2. Set links list as ref.
+3. On clicking menu-toggler button, toggle isChecked.
+3. If menu is open create an eventListener.
+4. If is not open, remove eventListener.
+5. If there's a click outside the link list, close the menu.
+
+Links: https://stackoverflow.com/questions/71093658/how-to-get-refs-using-composition-api-in-vue3
+
+Having a hard time typing with typescript
+- Lot of issues dealing with reactive values, computed functions, etc.
+
+Testing with Vitest
+- Similar to hard typing, working with a new framework requires a knowledge that I don't have yet. I tried to test some basic cases with Pagination after several tries.
+
+## Conclusions
+I wanted to test myself being far from my comfort zone and that's what I did. My objective was to develop this project with tools I haven't worked with for more than 2 weeks, learn and take decisions through the proccess. All the functionalities I wanted to put in are there althought I'd like to have a cleaner code, add smooth behaviour at components, have time for refactorizing and go deeper into Tailwind and Typescript.
