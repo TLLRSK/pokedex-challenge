@@ -1,6 +1,6 @@
 <template>
   <nav class="nav">
-    <label for="menu-toggler" class="menu-toggler flex m:hidden rounded-full">
+    <label for="menu-toggler" :class="getMenuTogglerClasses">
       <input
         class="absolute appearance-none"
         type="checkbox"
@@ -11,7 +11,7 @@
       <menu-icon />
     </label>
 
-    <ul :class="getNavClasses">
+    <ul :class="getLinkListClasses">
       <li class="ml-auto">
         <router-link class="text-main font-semibold uppercase" to="/">Home</router-link>
       </li>
@@ -31,7 +31,13 @@ export default {
   },
   setup() {
     const isChecked = ref(false);
-    const getNavClasses = computed(() => {
+    const getMenuTogglerClasses = computed(() => {
+      return [
+        "flex m:hidden rounded-full",
+        {"bg-white text-gray-dark": isChecked.value}
+      ]
+    })
+    const getLinkListClasses = computed(() => {
       return [
         {
           'flex flex-col': isChecked.value,
@@ -40,7 +46,7 @@ export default {
         "m:flex-row absolute m:static left-[0] right-[0] bg-gray-mid m:bg-transparent mt-1 m:mt-[0px] p-2 m:p-[0] gap-3",
       ]
     })
-    return {isChecked, getNavClasses};
+    return {isChecked, getMenuTogglerClasses, getLinkListClasses};
   }
 };
 </script>
