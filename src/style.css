@@ -63,6 +63,10 @@
     }
 }
 @layer components {
+    /* App */
+    #app {
+        @apply flex flex-col min-h-[100dvh];
+    }
     /* View Toggler */
     .viewOption {
         @apply flex items-center gap-1 px-1 rounded-0 cursor-pointer;

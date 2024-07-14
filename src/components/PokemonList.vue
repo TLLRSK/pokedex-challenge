@@ -1,11 +1,17 @@
 <template>
-  <ul :class="setViewClass" class="w-full xl:w-[calc(100%-372px)]">
+  <ul 
+  v-if="items.length > 0"
+  :class="setViewClass"
+  class="w-full xl:w-[calc(100%-372px)]">
     <pokemon-list-item
       v-for="(pokemonData, index) in items"
       :pokemonData="pokemonData"
       :key="index"
     />
   </ul>
+  <div v-else class="flex item-center m-auto">
+    <p>Loading...</p>
+  </div>
 </template>
 <script>
 import { computed, inject } from "vue";

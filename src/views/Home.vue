@@ -1,8 +1,8 @@
 <template>
-  <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-light">
+  <main class="flex-1 flex flex-col bg-gray-light">
     <view-toggler />
 
-    <section class="flex items-end xl:justify-center xl:px-6 xl:gap-3">
+    <section class="flex-1 flex items-end xl:justify-center xl:px-6 xl:gap-3">
       <pokemon-list :items="currentPokemonsInPage" />
       <pokemon-card />
     </section>

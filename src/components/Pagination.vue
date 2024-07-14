@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center gap-0 py-3">
+  <div v-if="items.length > 0" class="flex justify-center gap-0 py-3">
 
     <button
       class="px-1 align-center text-sm rounded-3 disabled:bg-transparent text-secondary disabled:text-gray-mid"
