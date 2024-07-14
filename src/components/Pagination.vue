@@ -84,10 +84,6 @@ export default {
       ];
     };
 
-    watch(() => props.items, (newVal) => {
-      console.log("Pagination props.items: ", newVal);
-    }, { immediate: true });
-
     return {
       totalPages,
       currentPage,
