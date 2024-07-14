@@ -25,7 +25,6 @@ export default {
     let darkMode = ref(false);
 
     const toggleDarkMode = () => {
-      console.log("darkmode: ", darkMode.value)
       darkMode.value = !darkMode.value;
 
       if (darkMode.value) {
@@ -97,7 +96,6 @@ export default {
       return computed(() => {
         const start = (currentPage.value - 1) * pokemonsPerPage;
         const end = start + pokemonsPerPage;
-        console.log(list.value.slice(start, end))
         return list.value.slice(start, end);
       });
     };

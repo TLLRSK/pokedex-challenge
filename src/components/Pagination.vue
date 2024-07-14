@@ -2,7 +2,7 @@
   <div v-if="items.length > 0" class="flex justify-center gap-0 py-3">
 
     <button
-      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
+      class="btn-page--prev px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
       @click="pagePrev"
       :disabled="disabledPrev"
     >
@@ -12,6 +12,7 @@
     <button
       v-for="page in totalPages"
       :key="page"
+      class="btn-page"
       :class="getButtonClasses(page)"
       @click="changePage(page)"
     >
@@ -19,7 +20,7 @@
     </button>
 
     <button
-      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
+      class="btn-page--next px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
       @click="pageNext"
       :disabled="disabledNext"
     >

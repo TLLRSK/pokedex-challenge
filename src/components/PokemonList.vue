@@ -1,6 +1,7 @@
 <template>
   <ul 
   v-if="items.length > 0"
+  class="pokemon-list"
   :class="setViewClass">
     <pokemon-list-item
       v-for="(pokemonData, index) in items"
@@ -8,8 +9,8 @@
       :key="index"
     />
   </ul>
-  <div v-else class="flex item-center m-auto">
-    <p>Loading...</p>
+  <div v-else class="loading flex item-center m-auto">
+    <p class="text-m">Loading...</p>
   </div>
 </template>
 <script lang="ts">
@@ -26,7 +27,7 @@ export default {
   },
   props: {
     items: {
-      type: Array as () => PokemonData[], // Asegúrate de especificar que items es un array de PokemonData
+      type: Array as () => PokemonData[],
       required: true,
     },
   },

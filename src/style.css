@@ -68,13 +68,13 @@
         @apply flex flex-col min-h-[100dvh];
     }
     /* View Toggler */
-    .viewOption {
+    .view-option {
         @apply flex items-center gap-1 px-1 rounded-0 cursor-pointer;
     }
-    .viewOption:has(input:checked) {
+    .view-option:has(input:checked) {
         @apply bg-gray-dark text-main
     }
-    .dark .viewOption {
+    .dark .view-option {
         @apply text-secondary;
     }
 }

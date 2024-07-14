@@ -1,15 +1,15 @@
 <template>
-  <div class="flex justify-end gap-3 p-3 mt-[40px] m:mt-[56px]">
+  <div class="view-toggler flex justify-end gap-3 p-3 mt-[40px] m:mt-[56px]">
     <span class="text-secondary">View:</span>
 
-    <div class="flex gap-1">
+    <div class="views flex gap-1">
       <label
         v-for="(view, index) in views"
         :key="index"
         :for="view.name"
-        class="viewOption hover:bg-gray-200"
+        class="view-option hover:bg-gray-200"
       >
-        <component :is="view.icon" class="w-3 h-3" />
+        <component :is="view.icon" class="view-icon w-3 h-3" />
 
         <input
           class="hidden"

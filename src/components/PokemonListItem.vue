@@ -1,7 +1,7 @@
 <template>
 <li 
 :class="setItemClass"
-class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray relative hover:shadow-secondary"
+class="pokemon-list-item gap-3 rounded-2 bg-main shadow-gray relative hover:shadow-secondary"
 >
     <img 
     v-if="pokemonData.sprites.front_default"

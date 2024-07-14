@@ -1,5 +1,5 @@
 <template>
-  <label for="light-toggler" class="cursor-pointer">
+  <label for="light-toggler" class="light-toggler cursor-pointer">
     <input
       type="checkbox"
       id="light-toggler"

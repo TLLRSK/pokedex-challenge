@@ -1,12 +1,12 @@
 <template>
   <nav class="nav">
-    <button :class="getMenuTogglerClasses" @click="toggleMenu">
+    <button class="menu-toggler" :class="getMenuTogglerClasses" @click="toggleMenu">
       <menu-icon />
     </button>
 
     <ul ref="linkList" :class="getLinkListClasses">
-      <li class="ml-auto" v-for="route in routes" :key="route.name">
-        <router-link class="text-main font-semibold uppercase hover:underline" :to="route.path" @click="closeMenu">{{route.name}}</router-link>
+      <li class="link-list-item ml-auto" v-for="route in routes" :key="route.name">
+        <router-link class="link text-main font-semibold uppercase hover:underline" :to="route.path" @click="closeMenu">{{route.name}}</router-link>
       </li>
     </ul>
 
@@ -26,7 +26,6 @@ export default {
   setup() {
     
     const router = useRouter();
-    console.log(router.options.routes)
     const routes = router.options.routes.filter((route) => route.hasOwnProperty('name'));
 
     const isChecked = ref(false);
