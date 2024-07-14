@@ -7,7 +7,7 @@
         v-for="(view, index) in views"
         :key="index"
         :for="view.name"
-        class="viewOption"
+        class="viewOption hover:bg-gray-200"
       >
         <component :is="view.icon" class="w-3 h-3" />
 
@@ -27,17 +27,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { inject } from "vue";
-import { List, Grid } from "../util/index.js";
+import { List, Grid } from "../util/index";
+import { AppData } from '../interfaces/appData';
 
 export default {
   components: { List, Grid },
 
-  inject: ["appData"],
-
   setup() {
-    const { views, currentView, setView } = inject("appData");
+    const appData = inject<AppData>("appData");
+
+    if (!appData) {
+      throw new Error("appData is not provided");
+    }
+
+    const { views, currentView, setView } = appData;
 
     return { currentView, views, setView };
   },

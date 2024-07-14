@@ -1,9 +1,10 @@
 <template>
 <li 
 :class="setItemClass"
-class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray relative"
+class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray relative hover:shadow-secondary"
 >
     <img 
+    v-if="pokemonData.sprites.front_default"
     :class="setImgClass" 
     :src="pokemonData.sprites.front_default" 
     :alt="pokemonData.name"
@@ -31,18 +32,27 @@ class="pokemonListItem gap-3 rounded-2 bg-main shadow-gray relative"
 </li> 
 </template>
 
-<script>
-import { computed, inject } from 'vue';
+<script lang="ts">
+import { computed, inject, PropType } from 'vue';
+import { AppData } from '../interfaces/appData';
+import { PokemonData, Type } from '../interfaces/pokemons';
 
 export default {
     props: {
         pokemonData: {
-        type: Object,
+        type: Object as PropType<PokemonData>,
         required: true,
         },
     },
+
     setup() {
-        const { selectPokemon, currentView } = inject('appData');
+        const appData = inject<AppData>("appData");
+
+        if (!appData) {
+        throw new Error("appData is not provided");
+        }
+
+        const { selectPokemon, currentView } = appData;
 
         const setItemClass = computed(() => ({
             'flex items-center p-1': currentView.value === 'list',
@@ -79,7 +89,7 @@ export default {
             'text-sm font-regular': currentView.value === 'grid',
         }));
 
-        function showTypes(type) {
+        function showTypes(type: Type) {
             const typeName = type.type.name;
             return `bg-${typeName}`;
         }

@@ -10,14 +10,15 @@
     <pagination :items="favourites"/>
   </main>
 </template>
-<script>
+<script lang="ts">
 import { inject } from 'vue';
 import {
   Pagination,
   PokemonCard,
   PokemonList,
   ViewToggler,
-} from "../util/index.js";
+} from "../util/index";
+
 export default {
     name: 'Favs',
     components: {
@@ -27,7 +28,7 @@ export default {
         ViewToggler,
     },
     setup() {
-        const {favourites, currentPokemons} = inject('appData');
+        const {favourites, currentPokemons} = inject<any>('appData');
         
         const currentPokemonsInPage = currentPokemons(favourites)
 

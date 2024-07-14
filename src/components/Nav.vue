@@ -6,16 +6,17 @@
 
     <ul ref="linkList" :class="getLinkListClasses">
       <li class="ml-auto" v-for="route in routes" :key="route.name">
-        <router-link class="text-main font-semibold uppercase" :to="route.path" @click="closeMenu">{{route.name}}</router-link>
+        <router-link class="text-main font-semibold uppercase hover:underline" :to="route.path" @click="closeMenu">{{route.name}}</router-link>
       </li>
     </ul>
+
     <div v-if="isChecked" class="overlay fixed top-[0] right-[0] bottom-[0] left-[0] -z-[10]"></div>
   </nav>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, ref, watch } from 'vue';
-import { MenuIcon } from "../util/index.js";
+import { MenuIcon } from "../util/index";
 import { useRouter } from 'vue-router';
 
 export default {
@@ -23,13 +24,14 @@ export default {
     MenuIcon,
   },
   setup() {
+    
     const router = useRouter();
     console.log(router.options.routes)
     const routes = router.options.routes.filter((route) => route.hasOwnProperty('name'));
 
     const isChecked = ref(false);
 
-    const linkList = ref(null);
+    const linkList = ref<HTMLElement | null >(null);
 
     const getMenuTogglerClasses = computed(() => {
       return [
@@ -68,9 +70,9 @@ export default {
       }
     );
     
-    const outsideClickHandler = (e) => {
-      const target = e.target;
-      if (!linkList.value.contains(target)) {
+    const outsideClickHandler = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (linkList.value && !linkList.value.contains(target)) {
         closeMenu();
       }
     };

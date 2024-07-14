@@ -13,9 +13,12 @@
     <p>Loading...</p>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { computed, inject } from "vue";
-import { PokemonListItem } from "../util/index.js";
+import { PokemonListItem } from "../util/index";
+import { AppData } from '../interfaces/appData';
+import { PokemonData } from '../interfaces/pokemons';
+
 export default {
   name: "PokemonsList",
   inject: ["appData"],
@@ -24,12 +27,19 @@ export default {
   },
   props: {
     items: {
-      type: Array,
+      type: Array as () => PokemonData[], // Asegúrate de especificar que items es un array de PokemonData
       required: true,
-    }
+    },
   },
   setup() {
-    const { currentView } = inject("appData");
+    const appData = inject<AppData>("appData");
+
+    if (!appData) {
+      throw new Error("appData is not provided");
+    }
+    
+    const { currentView } = appData;
+    
     const setViewClass = computed(() => {
       return [
         'flex flex-col px-3 gap-3',

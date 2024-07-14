@@ -11,19 +11,27 @@
   </main>
 </template>
 
-<script>
-import { inject, computed } from "vue";
-import { Pagination, PokemonCard, PokemonList, ViewToggler } from "../util/index.js";
+<script lang="ts">
+import { ComputedRef, inject, defineComponent } from "vue";
+import { Pagination, PokemonCard, PokemonList, ViewToggler } from "../util/index";
+import { AppData } from '../interfaces/appData';
+import { PokemonData } from '../interfaces/pokemons';
 
-export default {
+export default defineComponent({
   name: "Home",
   components: { PokemonList, PokemonCard, Pagination, ViewToggler },
   setup() {
-    const { pokedexData, currentPokemons, currentPage, pokemonsPerPage } = inject("appData");
+    const injectedData = inject<AppData>("appData");
 
-    const currentPokemonsInPage = currentPokemons(pokedexData);
+    if (!injectedData) {
+      throw new Error("appData is not provided");
+    }
+
+    const { pokedexData, currentPokemons, currentPage, pokemonsPerPage } = injectedData;
+
+    const currentPokemonsInPage: ComputedRef<PokemonData[]> = currentPokemons(pokedexData);
 
     return { pokedexData, currentPokemonsInPage, currentPage, pokemonsPerPage };
   }
-};
+});
 </script>

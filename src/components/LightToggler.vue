@@ -13,9 +13,10 @@
   </label>
 </template>
 
-<script>
+<script lang="ts">
 import { inject } from "vue";
-import { Light, Dark } from "../util/index.js";
+import { Light, Dark } from "../util/index";
+import { AppData } from '../interfaces/appData';
 
 export default {
   name: "LightToggler",
@@ -24,7 +25,13 @@ export default {
     Dark,
   },
   setup() {
-    const { darkMode, toggleDarkMode } = inject("appData");
+    const appData = inject<AppData>('appData')
+
+    if (!appData) {
+      throw new Error("appData is not provided");
+    }
+    
+    const { darkMode, toggleDarkMode } = appData;
 
     return { darkMode, toggleDarkMode };
   },

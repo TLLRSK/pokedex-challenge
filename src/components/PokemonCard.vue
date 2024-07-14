@@ -15,7 +15,7 @@
           <fav :class="favedClasses" />
         </button>
 
-        <button @click="unselectPokemon">
+        <button class="rounded-full hover:bg-gray-mid" @click="unselectPokemon">
           <close />
         </button>
       </div>
@@ -28,6 +28,7 @@
           ]"
         />
         <img
+          v-if="selectedPokemon && selectedPokemon.sprites.other['official-artwork'].front_default"
           class="w-[280px] h-[280px] m-auto z-10"
           :src="selectedPokemon.sprites.other['official-artwork'].front_default"
           :alt="selectedPokemon.name"
@@ -62,7 +63,7 @@
             class="flex w-full"
           >
             <span class="w-[20%] text-sm text-gray-dark font-bold">{{
-              statsMap[stat.stat.name]
+              statsMap[stat.stat.name] || stat.stat.name
             }}</span>
             <div class="flex-1 bg-gray-light rounded-4 overflow-hidden relative">
               <span class="absolute right-1 text-sm text-secondary">{{ stat.base_stat }}</span>
@@ -75,12 +76,14 @@
         </div>
       </div>
     </div>
+    <div v-if="isSelectedPokemon" class="overlay fixed bg-secondary top-[0] right-[0] bottom-[0] left-[0] -z-[10] opacity-20"></div>
   </article>
 </template>
 
-<script>
+<script lang="ts">
 import { computed, inject } from "vue";
-import { Fav, Close, Pokeball } from "../util/index.js";
+import { Fav, Close, Pokeball } from "../util/index";
+import { AppData } from '../interfaces/appData';
 
 export default {
   name: "PokemonCard",
@@ -90,13 +93,19 @@ export default {
     Pokeball,
   },
   setup() {
+    const appData = inject<AppData>("appData");
+
+    if (!appData) {
+      throw new Error("appData is not provided");
+    }
+    
     const {
       isSelectedPokemon,
       selectedPokemon,
       unselectPokemon,
       isFaved,
       updateFavourites,
-    } = inject("appData");
+    } = appData;
 
     const mainType = computed(() => {
       return selectedPokemon.value.types[0].type.name;
@@ -106,7 +115,7 @@ export default {
       return { "text-fire fill-fire": isFaved.value };
     });
 
-    const statsMap = {
+    const statsMap: Record<string, string> = {
       hp: "HP",
       attack: "ATTK",
       defense: "DEF",
@@ -115,7 +124,7 @@ export default {
       speed: "SPD",
     };
 
-    const getStatPercent = (statValue) => {
+    const getStatPercent = (statValue: number) => {
       const maxValue = 255;
       const statPercent = (Number(statValue) * 100) / maxValue;
       return statPercent + "%";
@@ -131,7 +140,6 @@ export default {
       favedClasses,
       statsMap,
       getStatPercent,
-      unselectPokemon,
     };
   },
 };

@@ -9,8 +9,8 @@
     <Nav />
   </header>
 </template>
-<script>
-import { Nav, LightToggler } from "../util/index.js";
+<script lang="ts">
+import { Nav, LightToggler } from "../util/index";
 export default {
   components: { LightToggler, Nav },
 };

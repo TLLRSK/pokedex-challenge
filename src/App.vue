@@ -3,15 +3,17 @@
   <router-view></router-view>
 </template>
 
-<script>
-import { computed, markRaw, onMounted, provide, ref, watch } from "vue";
+<script lang="ts">
+
+import { computed, ComputedRef, markRaw, onMounted, provide, Ref, ref, watch } from "vue";
 import {
   TopBar,
   Grid,
   List,
-} from "./util/index.js";
+} from "./util/index";
 import { useRouter, useRoute } from 'vue-router'
-
+import {PokemonData, PokemonEntry} from "../src/interfaces/pokemons";
+import {AppData} from "../src/interfaces/appData";
 
 export default {
   name: "App",
@@ -39,7 +41,7 @@ export default {
     }
 
     // Views
-    const views = ref([
+    const views = [
       {
         name: "grid",
         icon: markRaw(Grid),
@@ -48,16 +50,16 @@ export default {
         name: "list",
         icon: markRaw(List),
       },
-    ]);
+    ];
 
     const currentView = ref("grid");
 
-    const setView = (selectedView) => {
+    const setView = (selectedView: string) => {
       currentView.value = selectedView;
     };
 
     // Pokemon data
-    const pokedexData = ref([]);
+    const pokedexData = ref<PokemonData[]>([]);
 
     const fetchData = async () => {
       const baseUrl = "https://pokeapi.co/api/v2/pokedex/6/";
@@ -66,8 +68,8 @@ export default {
         const data = await fetch(baseUrl);
         const response = await data.json();
 
-        const allPokemonData = await Promise.all(
-          response.pokemon_entries.map(async (pokemonEntry) => {
+        const allPokemonData: PokemonData[] = await Promise.all(
+          response.pokemon_entries.map(async (pokemonEntry: PokemonEntry) => {
             const pokemonUrl = await pokemonEntry.pokemon_species.url;
             const splittedId = pokemonUrl
               .split("/")
@@ -90,13 +92,13 @@ export default {
         throw error;
       }
     };
-
-    const currentPokemons = (list) => {
+    
+    const currentPokemons = (list: Ref<PokemonData[]>): ComputedRef<PokemonData[]> => {
       return computed(() => {
         const start = (currentPage.value - 1) * pokemonsPerPage;
         const end = start + pokemonsPerPage;
-        const result = list.value.slice(start, end);
-        return result;
+        console.log(list.value.slice(start, end))
+        return list.value.slice(start, end);
       });
     };
 
@@ -106,13 +108,12 @@ export default {
 
     // Pokemon Card
     const isSelectedPokemon = ref(false);
-    const selectedPokemon = ref({});
+    const selectedPokemon: Ref<PokemonData | undefined> = ref(undefined);
     const isFaved = ref(false);
 
-    const selectPokemon = (pokemonData) => {
+    const selectPokemon = (pokemonData: PokemonData) => {
       selectedPokemon.value = pokemonData;
       isSelectedPokemon.value = true;
-
       toggleFavourite(pokemonData);
     };
 
@@ -121,7 +122,7 @@ export default {
     };
 
     // Favourites
-    const favourites = ref([]);
+    const favourites = ref<PokemonData[]>([]);
 
     const loadFavourites = () => {
       const favPokemons = localStorage.getItem("favPokemons");
@@ -135,13 +136,13 @@ export default {
       localStorage.setItem("favPokemons", JSON.stringify(favourites.value));
     };
 
-    const toggleFavourite = (pokemonData) => {
+    const toggleFavourite = (pokemonData: PokemonData) => {
       isFaved.value = favourites.value.some(
         (pokemon) => pokemon.id === pokemonData.id
       );
     };
 
-    const updateFavourites = (pokemonData) => {
+    const updateFavourites = (pokemonData: PokemonData) => {
       const index = favourites.value.findIndex(
         (pokemon) => pokemon.id === pokemonData.id
       );
@@ -165,7 +166,7 @@ export default {
         if (router.options.routes.some( route => route.path === currentPath)) {
           currentPage.value = 1;
           isSelectedPokemon.value = false;
-          selectedPokemon.value = null;
+          selectedPokemon.value = undefined;
         }
       }
     );
@@ -176,7 +177,7 @@ export default {
       userColorSchemePreference();
     });
 
-    provide("appData", {
+    provide<AppData>("appData", {
       pokedexData,
       currentPokemons,
       darkMode,
@@ -189,7 +190,7 @@ export default {
       selectPokemon,
       isSelectedPokemon,
       unselectPokemon,
-      selectedPokemon,
+      selectedPokemon: selectedPokemon as Ref<PokemonData>,
       toggleFavourite,
       favourites,
       isFaved,

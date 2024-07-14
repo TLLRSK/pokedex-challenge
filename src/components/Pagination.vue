@@ -2,7 +2,7 @@
   <div v-if="items.length > 0" class="flex justify-center gap-0 py-3">
 
     <button
-      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent text-secondary disabled:text-gray-mid"
+      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
       @click="pagePrev"
       :disabled="disabledPrev"
     >
@@ -19,7 +19,7 @@
     </button>
 
     <button
-      class="px-1 align-center text-secondary text-sm rounded-3 disabled:bg-transparent disabled:text-gray-200"
+      class="px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
       @click="pageNext"
       :disabled="disabledNext"
     >
@@ -29,9 +29,10 @@
   </div>
 </template>
 
-<script>
-import { computed, inject, watch } from "vue";
+<script lang="ts">
+import { computed, inject } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { AppData } from '../interfaces/appData';
 
 export default {
   name: "Pagination",
@@ -43,10 +44,16 @@ export default {
   },
   setup(props) {
 
+    const appData = inject<AppData>("appData");
+
+    if (!appData) {
+      throw new Error("appData is not provided");
+    }
+
     const router = useRouter();
     const route = useRoute();
 
-    const { currentPage, pokemonsPerPage } = inject("appData");
+    const { currentPage, pokemonsPerPage } = appData;
 
     const totalPages = computed(() => {
       return Math.round(props.items.length / pokemonsPerPage);
@@ -68,7 +75,7 @@ export default {
       return currentPage.value === totalPages.value;
     });
 
-    const changePage = (page) => {
+    const changePage = (page: number) => {
       const currentPath = route.path === '/' ? '/pokedex' : route.path;
       const basePath = currentPath.split('/page-')[0]
       const urlString = `${basePath}/page-${page}`;
@@ -77,9 +84,9 @@ export default {
       window.scrollTo(0, 0);
     };
 
-    const getButtonClasses = (page) => {
+    const getButtonClasses = (page: number) => {
       return [
-        'px-1 align-center text-sm rounded-3',
+        'px-1 align-center text-sm rounded-3 hover:bg-gray-mid',
         currentPage.value === page ? 'text-main bg-gray-dark' : 'text-secondary'
       ];
     };
