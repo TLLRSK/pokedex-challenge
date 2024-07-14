@@ -30,16 +30,22 @@
 </template>
 
 <script>
-import { computed, inject } from "vue";
+import { computed, inject, watch } from "vue";
 
 export default {
   name: "Pagination",
-  setup() {
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    }
+  },
+  setup(props) {
 
-    const { pokedexData, currentPage, pokemonsPerPage, changePage } = inject("appData");
+    const { currentPage, pokemonsPerPage } = inject("appData");
 
     const totalPages = computed(() => {
-      return Math.ceil(pokedexData.value.length / pokemonsPerPage);
+      return Math.round(props.items.length / pokemonsPerPage);
     });
 
     const pagePrev = () => {
@@ -58,12 +64,21 @@ export default {
       return currentPage.value === totalPages.value;
     });
 
+    const changePage = (page) => {
+      currentPage.value = page;
+      window.scrollTo(0, 0);
+    };
+
     const getButtonClasses = (page) => {
       return [
         'px-1 align-center text-sm rounded-3',
         currentPage.value === page ? 'text-main bg-gray-dark' : 'text-secondary'
       ];
     };
+
+    watch(() => props.items, (newVal) => {
+      console.log("Pagination props.items: ", newVal);
+    }, { immediate: true });
 
     return {
       totalPages,

@@ -1,7 +1,7 @@
 <template>
   <ul :class="setViewClass" class="w-full xl:w-[calc(100%-372px)]">
     <pokemon-list-item
-      v-for="(pokemonData, index) in currentPokemons"
+      v-for="(pokemonData, index) in items"
       :pokemonData="pokemonData"
       :key="index"
     />
@@ -16,15 +16,21 @@ export default {
   components: {
     PokemonListItem,
   },
+  props: {
+    items: {
+      type: Array,
+      required: true,
+    }
+  },
   setup() {
-    const { currentPokemons, currentView } = inject("appData");
+    const { currentView } = inject("appData");
     const setViewClass = computed(() => {
       return [
         'flex flex-col px-3 gap-3',
         { 'm:grid m:grid-cols-2 l:grid-cols-3' : currentView.value === "grid" },
       ];
     });
-    return { currentPokemons, currentView, setViewClass };
+    return { currentView, setViewClass };
   },
 };
 </script>

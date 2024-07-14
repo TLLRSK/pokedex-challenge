@@ -17,3 +17,7 @@ export { default as PokemonCard } from '../components/PokemonCard.vue';
 export { default as PokemonListItem } from '../components/PokemonListItem.vue';
 export { default as PokemonList } from '../components/PokemonList.vue';
 export { default as ViewToggler } from '../components/ViewToggler.vue';
+
+// Views
+export { default as Home } from '../views/Home.vue';
+export { default as Favs } from '../views/Favs.vue';

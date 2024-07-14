@@ -12,8 +12,12 @@
     </label>
 
     <ul class="hidden m:flex m:gap-3">
-      <a href="">Home</a>
-      <a href="">Favs</a>
+      <li>
+        <router-link to="/">Home</router-link>
+      </li>
+      <li>
+        <router-link to="/favs">Favs</router-link>
+      </li>
     </ul>
   </nav>
 </template>

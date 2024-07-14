@@ -1,40 +1,20 @@
 <template>
   <top-bar />
-
-  <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-light">
-    <view-toggler />
-
-    <section class="flex items-end xl:justify-center xl:px-6 xl:gap-3">
-      <pokemon-list />
-      <pokemon-card />
-    </section>
-
-    <pagination />
-  </main>
+  <router-view></router-view>
 </template>
 
 <script>
 import { computed, markRaw, onMounted, provide, ref } from "vue";
 import {
   TopBar,
-  Pagination,
-  PokemonCard,
-  PokemonList,
-  ViewToggler,
-  List,
   Grid,
+  List,
 } from "./util/index.js";
 
 export default {
   name: "App",
   components: {
     TopBar,
-    PokemonList,
-    PokemonCard,
-    Pagination,
-    ViewToggler,
-    List,
-    Grid,
   },
   setup() {
     // Light Toggling
@@ -109,22 +89,18 @@ export default {
       }
     };
 
-    const currentPokemons = computed(() => {
-      const start = (currentPage.value - 1) * pokemonsPerPage;
-      const end = start + pokemonsPerPage;
-      const currents = pokedexData.value.slice(start, end);
-
-      return currents;
-    });
+    const currentPokemons = (list) => {
+      return computed(() => {
+        const start = (currentPage.value - 1) * pokemonsPerPage;
+        const end = start + pokemonsPerPage;
+        const result = list.value.slice(start, end);
+        return result;
+      });
+    };
 
     // Pagination
     const currentPage = ref(1);
     const pokemonsPerPage = 30;
-
-    const changePage = (page) => {
-      currentPage.value = page;
-      window.scrollTo(0, 0);
-    };
 
     // Pokemon Card
     const isSelectedPokemon = ref(false);
@@ -191,7 +167,6 @@ export default {
       currentView,
       setView,
       currentPage,
-      changePage,
       pokemonsPerPage,
       selectPokemon,
       isSelectedPokemon,
