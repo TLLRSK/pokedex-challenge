@@ -4,12 +4,14 @@
 </template>
 
 <script>
-import { computed, markRaw, onMounted, provide, ref } from "vue";
+import { computed, markRaw, onMounted, provide, ref, watch } from "vue";
 import {
   TopBar,
   Grid,
   List,
 } from "./util/index.js";
+import { useRouter, useRoute } from 'vue-router'
+
 
 export default {
   name: "App",
@@ -151,6 +153,22 @@ export default {
       toggleFavourite(pokemonData);
       saveFavourites();
     };
+ 
+    // Routing
+    const router = useRouter();
+    const route = useRoute();
+
+    watch(
+      () => route.path,
+      () => {
+        const currentPath = route.path;
+        if (router.options.routes.some( route => route.path === currentPath)) {
+          currentPage.value = 1;
+          isSelectedPokemon.value = false;
+          selectedPokemon.value = null;
+        }
+      }
+    );
 
     onMounted(() => {
       fetchData();
