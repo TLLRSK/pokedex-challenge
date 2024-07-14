@@ -1,8 +1,7 @@
 <template>
   <ul 
   v-if="items.length > 0"
-  :class="setViewClass"
-  class="w-full xl:w-[calc(100%-372px)]">
+  :class="setViewClass">
     <pokemon-list-item
       v-for="(pokemonData, index) in items"
       :pokemonData="pokemonData"
@@ -42,7 +41,7 @@ export default {
     
     const setViewClass = computed(() => {
       return [
-        'flex flex-col px-3 gap-3',
+        'flex-1 xl:w-[calc(100%-372px)] mb-auto flex flex-col px-3 gap-3',
         { 'm:grid m:grid-cols-2 l:grid-cols-3' : currentView.value === "grid" },
       ];
     });
