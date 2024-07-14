@@ -7,8 +7,8 @@ import {Home, Favs} from './util/index.js';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {path: '/', component: Home},
-        {path: '/favs', component: Favs},
+        {name: 'Home', path: '/', component: Home},
+        {name: 'Favs', path: '/favs', component: Favs},
         {path: '/pokedex/page-:page', component: Home},
         {path: '/favs/page-:page', component: Favs},
     ]
