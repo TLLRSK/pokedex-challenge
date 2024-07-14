@@ -5,11 +5,8 @@
     </button>
 
     <ul ref="linkList" :class="getLinkListClasses">
-      <li class="ml-auto">
-        <router-link class="text-main font-semibold uppercase" to="/" @click="closeMenu">Home</router-link>
-      </li>
-      <li class="ml-auto">
-        <router-link class="text-main font-semibold uppercase" to="/favs" @click="closeMenu">Favs</router-link>
+      <li class="ml-auto" v-for="route in routes" :key="route.name">
+        <router-link class="text-main font-semibold uppercase" :to="route.path" @click="closeMenu">{{route.name}}</router-link>
       </li>
     </ul>
     <div v-if="isChecked" class="overlay fixed top-[0] right-[0] bottom-[0] left-[0] -z-[10]"></div>
@@ -19,12 +16,17 @@
 <script>
 import { computed, ref, watch } from 'vue';
 import { MenuIcon } from "../util/index.js";
+import { useRouter } from 'vue-router';
 
 export default {
   components: {
     MenuIcon,
   },
   setup() {
+    const router = useRouter();
+    console.log(router.options.routes)
+    const routes = router.options.routes.filter((route) => route.hasOwnProperty('name'));
+
     const isChecked = ref(false);
 
     const linkList = ref(null);
@@ -52,7 +54,7 @@ export default {
     const closeMenu = () => {
       isChecked.value = false;
     };
-    
+
     watch(
       () => isChecked.value,
       (newValue) => {
@@ -74,6 +76,7 @@ export default {
     };
 
     return {
+      routes,
       isChecked,
       getMenuTogglerClasses,
       getLinkListClasses,
