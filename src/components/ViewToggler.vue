@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end gap-3 p-3">
+  <div class="flex justify-end gap-3 p-3 mt-[40px] m:mt-[56px]">
     <span class="text-secondary">View:</span>
 
     <div class="flex gap-1">
