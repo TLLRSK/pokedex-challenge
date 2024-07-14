@@ -12,12 +12,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        'main': 'var(--main)',
+        /* Grays */
         'gray-0': 'var(--gray-0)',
         'gray-100': 'var(--gray-100)',
         'gray-200': 'var(--gray-200)',
         'gray-300': 'var(--gray-300)',
-        'secondary': 'var(--secondary)',
+        'gray-400': 'var(--gray-400)',
+        'gray-500': 'var(--gray-500)',
+        /* Pokemons types */
         'normal': 'var(--normal)',
         'rock': 'var(--rock)',
         'ground': 'var(--ground)',
@@ -36,6 +38,12 @@ export default {
         'flying': 'var(--flying)',
         'water': 'var(--water)',
         'dragon': 'var(--dragon)',
+        /* Light Themes */
+        'main': 'var(--main)',
+        'secondary': 'var(--secondary)',
+        'gray-light': 'var(--gray-light)',
+        'gray-dark': 'var(--gray-dark)',
+        'gray-mid': 'var(--gray-mid)',
       },
       fontSize: {
         's': '8px',
@@ -60,8 +68,7 @@ export default {
         '4': '24px',
       },
       boxShadow: {
-        'gray-200': '0px 0px 6px 0px',
-        'gray-300': '0px 0px 6px 0px',
+        'gray': '0px 0px 6px 0px var(--shadow-color)',
       },
       screens: {
         'sm': '480px',
