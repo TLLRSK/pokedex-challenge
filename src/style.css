@@ -67,6 +67,10 @@
     #app {
         @apply flex flex-col min-h-[100dvh];
     }
+    /* Nav */
+    .menu-toggler:has(input:checked) {
+        @apply bg-white text-gray-dark;
+    }
     /* View Toggler */
     .viewOption {
         @apply flex items-center gap-1 px-1 rounded-0 cursor-pointer;
