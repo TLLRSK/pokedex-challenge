@@ -56,7 +56,8 @@ export default {
     const { currentPage, pokemonsPerPage } = appData;
 
     const totalPages = computed(() => {
-      return Math.round(props.items.length / pokemonsPerPage);
+      const total = Math.round(props.items.length / pokemonsPerPage);
+      return total === 0 ? 1 : total;
     });
 
     const pagePrev = () => {
