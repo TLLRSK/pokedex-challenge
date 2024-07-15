@@ -3,6 +3,8 @@
 
     <view-toggler />
 
+    <h2 class="text-m font-semibold text-secondary absolute top-[56px] m:top-[68px] left-3">Favourites</h2>
+
     <section class="flex-1 flex items-end xl:justify-center xl:px-6 xl:gap-3 pb-3">
 
       <pokemon-list v-if="favourites.length > 0" :items="favourites" />
