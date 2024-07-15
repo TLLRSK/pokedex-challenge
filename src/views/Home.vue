@@ -3,7 +3,8 @@
     <view-toggler />
 
     <section class="flex-1 flex items-end xl:justify-center xl:px-6 xl:gap-3">
-      <pokemon-list :items="currentPokemonsInPage" />
+      <pokemon-list v-if="pokedexData.length > 0" :items="currentPokemonsInPage" />
+      <div v-else class="flex my-auto items-center justify-center flex-1 xl:w-[calc(100%-372px)] px-3 gap-3">Loading pokedex data...</div>
       <pokemon-card />
     </section>
 

@@ -1,6 +1,5 @@
 <template>
   <ul 
-  v-if="items.length > 0"
   class="pokemon-list"
   :class="setViewClass">
     <pokemon-list-item
@@ -9,9 +8,6 @@
       :key="index"
     />
   </ul>
-  <div v-else class="loading flex item-center m-auto">
-    <p class="text-m">Loading...</p>
-  </div>
 </template>
 <script lang="ts">
 import { computed, inject } from "vue";
