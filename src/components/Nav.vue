@@ -1,5 +1,7 @@
 <template>
+
   <nav class="nav">
+
     <button class="menu-toggler" :class="getMenuTogglerClasses" @click="toggleMenu">
       <menu-icon />
     </button>
@@ -12,6 +14,7 @@
 
     <div v-if="isChecked" class="overlay fixed top-[0] right-[0] bottom-[0] left-[0] -z-[10]"></div>
   </nav>
+
 </template>
 
 <script lang="ts">
@@ -26,6 +29,7 @@ export default {
   setup() {
     
     const router = useRouter();
+
     const routes = router.options.routes.filter((route) => route.hasOwnProperty('name'));
 
     const isChecked = ref(false);
@@ -52,6 +56,7 @@ export default {
     const toggleMenu = () => {
       isChecked.value = !isChecked.value;
     }
+    
     const closeMenu = () => {
       isChecked.value = false;
     };
@@ -59,6 +64,7 @@ export default {
     watch(
       () => isChecked.value,
       (newValue) => {
+
         if (newValue) {
           setTimeout(() => {
             document.addEventListener("click", outsideClickHandler);
@@ -71,6 +77,7 @@ export default {
     
     const outsideClickHandler = (e: Event) => {
       const target = e.target as HTMLElement;
+
       if (linkList.value && !linkList.value.contains(target)) {
         closeMenu();
       }

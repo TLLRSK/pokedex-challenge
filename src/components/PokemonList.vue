@@ -1,16 +1,20 @@
 <template>
-  <ul 
-  class="pokemon-list"
-  :class="setViewClass">
+
+  <ul class="pokemon-list" :class="setViewClass">
+
     <pokemon-list-item
       v-for="(pokemonData, index) in items"
       :pokemonData="pokemonData"
       :key="index"
     />
+
   </ul>
+
 </template>
+
 <script lang="ts">
-import { computed, inject } from "vue";
+
+import { computed, inject, PropType } from "vue";
 import { PokemonListItem } from "../util/index";
 import { AppData } from '../interfaces/appData';
 import { PokemonData } from '../interfaces/pokemons';
@@ -23,7 +27,7 @@ export default {
   },
   props: {
     items: {
-      type: Array as () => PokemonData[],
+      type: Array as PropType<PokemonData[]>,
       required: true,
     },
   },
@@ -42,6 +46,7 @@ export default {
         { 'm:grid m:grid-cols-2 l:grid-cols-3' : currentView.value === "grid" },
       ];
     });
+    
     return { currentView, setViewClass };
   },
 };

@@ -2,15 +2,14 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import {Home, Favs} from './util/index';
+import {Pokedex, Favs} from './util/index';
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        {name: 'Home', path: '/', component: Home},
+        {name: 'Pokedex', path: '/', component: Pokedex},
         {name: 'Favs', path: '/favs', component: Favs},
-        {path: '/pokedex/page-:page', component: Home},
-        {path: '/favs/page-:page', component: Favs},
+        {path: '/pokedex/page-:page', component: Pokedex},
     ]
 });
 

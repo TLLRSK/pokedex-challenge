@@ -1,9 +1,8 @@
-import { ComputedRef, Ref } from "vue";
+import { Ref } from "vue";
 import { PokemonData } from "./pokemons";
 
 export interface AppData {
     pokedexData: Ref<PokemonData[]>,
-    currentPokemons: (list: Ref<PokemonData[]>) => ComputedRef<PokemonData[]>,
     darkMode: Ref<boolean>,
     toggleDarkMode: () => void,
     views: { name: string; icon: any }[],
@@ -14,7 +13,7 @@ export interface AppData {
     selectPokemon: (pokemonData: PokemonData) => void,
     isSelectedPokemon: Ref<boolean>,
     unselectPokemon: () => void,
-    selectedPokemon: Ref<PokemonData>,
+    selectedPokemon: Ref<PokemonData>;
     toggleFavourite: (pokemonData: PokemonData) => void,
     favourites: Ref<PokemonData[]>,
     isFaved: Ref<boolean>,

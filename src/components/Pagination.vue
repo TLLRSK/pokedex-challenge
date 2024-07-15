@@ -2,7 +2,8 @@
   <div v-if="items.length > 0" class="flex justify-center gap-0 py-3">
 
     <button
-      class="btn-page--prev px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
+      class="btn-page--prev disabled:text-gray-mid"
+      :class="getPrevNextButtonsClasses"
       @click="pagePrev"
       :disabled="disabledPrev"
     >
@@ -20,7 +21,8 @@
     </button>
 
     <button
-      class="btn-page--next px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid"
+      class="btn-page--next disabled:text-gray-mid"
+      :class="getPrevNextButtonsClasses"
       @click="pageNext"
       :disabled="disabledNext"
     >
@@ -93,6 +95,10 @@ export default {
       ];
     };
 
+    const getPrevNextButtonsClasses = () => {
+      return "px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid";
+    }
+
     return {
       totalPages,
       currentPage,
@@ -101,6 +107,7 @@ export default {
       pageNext,
       disabledPrev,
       disabledNext,
+      getPrevNextButtonsClasses,
       getButtonClasses,
     };
   },

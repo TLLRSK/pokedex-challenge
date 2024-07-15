@@ -1,5 +1,6 @@
 <template>
   <div class="view-toggler flex justify-end gap-3 p-3 mt-[40px] m:mt-[56px]">
+
     <span class="text-secondary">View:</span>
 
     <div class="views flex gap-1">
@@ -25,6 +26,7 @@
       </label>
     </div>
   </div>
+  
 </template>
 
 <script lang="ts">

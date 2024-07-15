@@ -1,5 +1,6 @@
 <template>
   <label for="light-toggler" class="light-toggler cursor-pointer">
+
     <input
       type="checkbox"
       id="light-toggler"
@@ -10,6 +11,7 @@
 
     <Light v-if="!darkMode" />
     <Dark v-else />
+
   </label>
 </template>
 
@@ -24,6 +26,7 @@ export default {
     Light,
     Dark,
   },
+  
   setup() {
     const appData = inject<AppData>('appData')
 

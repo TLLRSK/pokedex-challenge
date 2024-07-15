@@ -1,11 +1,13 @@
 <template>
+
   <header-bar />
-  <router-view></router-view>
+  <router-view />
+  
 </template>
 
 <script lang="ts">
 
-import { computed, ComputedRef, markRaw, onMounted, provide, Ref, ref, watch } from "vue";
+import {  markRaw, onMounted, provide, Ref, ref, watch } from "vue";
 import {
   HeaderBar,
   Grid,
@@ -68,11 +70,13 @@ export default {
         const response = await data.json();
 
         const allPokemonData: PokemonData[] = await Promise.all(
+
           response.pokemon_entries.map(async (pokemonEntry: PokemonEntry) => {
+
             const pokemonUrl = await pokemonEntry.pokemon_species.url;
             const splittedId = pokemonUrl
               .split("/")
-              .filter((blank) => blank)
+              .filter((a) => a != '')
               .pop();
             const url = `https://pokeapi.co/api/v2/pokemon/${splittedId}`;
 
@@ -80,24 +84,19 @@ export default {
               const data = await fetch(url);
               const response = await data.json();
               return response;
+
             } catch (error) {
+
               throw error;
             }
           })
         );
 
         pokedexData.value = allPokemonData;
+
       } catch (error) {
         throw error;
       }
-    };
-    
-    const currentPokemons = (list: Ref<PokemonData[]>): ComputedRef<PokemonData[]> => {
-      return computed(() => {
-        const start = (currentPage.value - 1) * pokemonsPerPage;
-        const end = start + pokemonsPerPage;
-        return list.value.slice(start, end);
-      });
     };
 
     // Pagination
@@ -141,6 +140,7 @@ export default {
     };
 
     const updateFavourites = (pokemonData: PokemonData) => {
+      
       const index = favourites.value.findIndex(
         (pokemon) => pokemon.id === pokemonData.id
       );
@@ -161,12 +161,17 @@ export default {
       () => route.path,
       () => {
         const currentPath = route.path;
-        if (router.options.routes.some( route => route.path === currentPath)) {
+
+        if (router.options.routes.some( route => route.hasOwnProperty('name') && route.path === currentPath)) {
           currentPage.value = 1;
           isSelectedPokemon.value = false;
           selectedPokemon.value = undefined;
+        } else {
+          const page = Number(currentPath.split('').pop());
+          currentPage.value = page;
         }
-      }
+      },
+      { immediate: true }
     );
 
     onMounted(() => {
@@ -175,9 +180,8 @@ export default {
       userColorSchemePreference();
     });
 
-    provide<AppData>("appData", {
+    const appData: AppData = {
       pokedexData,
-      currentPokemons,
       darkMode,
       toggleDarkMode,
       views,
@@ -193,7 +197,9 @@ export default {
       favourites,
       isFaved,
       updateFavourites,
-    });
+    };
+
+    provide("appData", appData);
   },
 };
 </script>
