@@ -11,7 +11,7 @@ export { default as Close } from '../components/icons/Close.vue';
 // Components
 export { default as LightToggler } from '../components/LightToggler.vue';
 export { default as Nav } from '../components/Nav.vue';
-export { default as TopBar } from '../components/TopBar.vue';
+export { default as HeaderBar } from '../components/HeaderBar.vue';
 export { default as Pagination } from '../components/Pagination.vue';
 export { default as PokemonCard } from '../components/PokemonCard.vue';
 export { default as PokemonListItem } from '../components/PokemonListItem.vue';

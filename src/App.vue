@@ -1,5 +1,5 @@
 <template>
-  <top-bar />
+  <header-bar />
   <router-view></router-view>
 </template>
 
@@ -7,7 +7,7 @@
 
 import { computed, ComputedRef, markRaw, onMounted, provide, Ref, ref, watch } from "vue";
 import {
-  TopBar,
+  HeaderBar,
   Grid,
   List,
 } from "./util/index";
@@ -18,7 +18,7 @@ import {AppData} from "../src/interfaces/appData";
 export default {
   name: "App",
   components: {
-    TopBar,
+    HeaderBar,
   },
   setup() {
     // Light Toggling
