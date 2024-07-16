@@ -59,7 +59,7 @@ export default {
       currentView.value = selectedView;
     };
 
-    // Pokemon data
+    // Pokedex data
     const pokedexData = ref<PokemonData[]>([]);
 
     const fetchData = async () => {
