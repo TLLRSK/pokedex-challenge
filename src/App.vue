@@ -7,7 +7,7 @@
 
 <script lang="ts">
 
-import {  markRaw, onMounted, provide, Ref, ref, watch } from "vue";
+import { onMounted, provide, Ref, ref, watch } from "vue";
 import {
   HeaderBar,
   Grid,
@@ -45,11 +45,11 @@ export default {
     const views = [
       {
         name: "grid",
-        icon: markRaw(Grid),
+        icon: Grid,
       },
       {
         name: "list",
-        icon: markRaw(List),
+        icon: List,
       },
     ];
 
