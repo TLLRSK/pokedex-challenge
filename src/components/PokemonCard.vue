@@ -1,12 +1,12 @@
 <template>
 
-  <article class="pokemon-slot w-full flex justify-center fixed xl:w-[312px] xl:h-[590px] xl:sticky bottom-[0] xl:bottom-4 xl:border-[2px] border-main border-3 xl:rounded-4">
+  <article class="pokemon-slot w-full flex justify-center fixed xl:w-[312px] xl:h-[590px] xl:sticky bottom-[0] xl:bottom-4 xl:border-[2px] border-main border-3 xl:rounded-4 z-40">
     
-    <pokeball class="pokeball hidden w-[240px] h-[240px] text-main absolute top-[60px] xl:block rotate-[24deg]"/>
+    <pokeball class="pokeball hidden w-[240px] h-[240px] text-main absolute top-[60px] xl:block rotate-[24deg] animate-spin-slow"/>
 
     <div
       v-if="isSelectedPokemon && selectedPokemon"
-      class="pokemon-card w-full p-3 flex flex-col m:flex-row xl:flex-col bg-main xl:rounded-4 z-10"
+      class="pokemon-card w-full p-3 flex flex-col m:flex-row xl:flex-col bg-main xl:rounded-4"
     >
 
       <div class="card-buttons flex justify-between absolute left-3 right-3 z-20">
@@ -23,7 +23,7 @@
 
       <div class="card-image flex items-center justify-center m:mt-4 m:ml-[8%] xl:m-[0]">
         
-        <pokeball :class="['pokeball absolute w-[240px] h-[240px] opacity-50 rotate-[24deg]', `text-${mainType}`]"/>
+        <pokeball :class="['pokeball absolute w-[240px] h-[240px] opacity-50 rotate-[24deg] animate-spin-slow', `text-${mainType}`]"/>
 
         <img
           v-if="selectedPokemon && selectedPokemon.sprites.other['official-artwork'].front_default"
@@ -86,13 +86,16 @@
       </div>
     </div>
 
-    <div v-if="isSelectedPokemon" class="overlay m:hidden fixed bg-secondary top-[0] right-[0] bottom-[0] left-[0] -z-[10] opacity-20"></div>
-
   </article>
+
+   <div 
+      v-if="isSelectedPokemon"
+      ref="overlay"
+      class="overlay xl:hidden fixed bg-secondary top-[0] right-[0] bottom-[0] z-30 left-[0] opacity-20"/>
 </template>
 
 <script lang="ts">
-import { computed, inject } from "vue";
+import { computed, inject, ref, watch } from "vue";
 import { Fav, Close, Pokeball } from "../util/index";
 import { AppData } from '../interfaces/appData';
 
@@ -105,6 +108,8 @@ export default {
   },
   setup() {
     const appData = inject<AppData>("appData");
+
+    const overlay = ref(null);
 
     if (!appData) {
       throw new Error("appData is not provided");
@@ -125,9 +130,9 @@ export default {
     });
 
     const getFavClasses = computed(() => {
-      return { "text-fire fill-fire": isFaved.value };
+      return ["hover:text-fire", { "text-fire fill-fire hover:": isFaved.value }];
     });
-
+    
     const statsMap: Record<string, string> = {
       hp: "HP",
       attack: "ATTK",
@@ -143,7 +148,29 @@ export default {
       return statPercent + "%";
     };
 
+    watch(
+      () => isSelectedPokemon.value,
+      (newValue) => {
+
+        if (newValue) {
+          setTimeout(() => {
+            document.addEventListener("click", outsideClickHandler);
+          }, 100);
+        } else {
+          document.removeEventListener('click', outsideClickHandler);
+        }
+      }
+    );
+    
+    const outsideClickHandler = (e: Event) => {
+      const target = e.target as HTMLElement;
+      if (overlay.value && overlay.value.contains(target)) {
+        unselectPokemon();
+      }
+    };
+
     return {
+      overlay,
       isSelectedPokemon,
       selectedPokemon,
       updateFavourites,
