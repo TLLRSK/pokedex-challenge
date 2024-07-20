@@ -72,4 +72,10 @@
     .dark .view-option {
         @apply text-secondary;
     }
+    /* Pagination */
+    .dark .btn-page--prev,
+    .dark .btn-page--next,
+    .dark .btn-page {
+        @apply hover:bg-gray-dark;
+    }
 }
