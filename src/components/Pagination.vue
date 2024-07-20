@@ -95,9 +95,9 @@ export default {
       ];
     };
 
-    const prevNextButtonsClasses = () => {
-      return "px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid";
-    }
+    const prevNextButtonsClasses = computed(() => {
+      return "px-1 align-center text-secondary text-sm rounded-3 hover:bg-gray-mid disabled:bg-transparent disabled:text-gray-mid";
+    })
 
     return {
       totalPages,
