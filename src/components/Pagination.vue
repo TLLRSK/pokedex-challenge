@@ -3,7 +3,7 @@
 
     <button
       class="btn-page--prev disabled:text-gray-mid"
-      :class="getPrevNextButtonsClasses"
+      :class="prevNextButtonsClasses"
       @click="pagePrev"
       :disabled="disabledPrev"
     >
@@ -14,7 +14,7 @@
       v-for="page in totalPages"
       :key="page"
       class="btn-page"
-      :class="getButtonClasses(page)"
+      :class="buttonClasses(page)"
       @click="changePage(page)"
     >
       {{ page }}
@@ -22,7 +22,7 @@
 
     <button
       class="btn-page--next disabled:text-gray-mid"
-      :class="getPrevNextButtonsClasses"
+      :class="prevNextButtonsClasses"
       @click="pageNext"
       :disabled="disabledNext"
     >
@@ -88,14 +88,14 @@ export default {
       window.scrollTo(0, 0);
     };
 
-    const getButtonClasses = (page: number) => {
+    const buttonClasses = (page: number) => {
       return [
         'px-1 align-center text-sm rounded-3 hover:bg-gray-mid',
         currentPage.value === page ? 'text-main bg-gray-dark' : 'text-secondary'
       ];
     };
 
-    const getPrevNextButtonsClasses = () => {
+    const prevNextButtonsClasses = () => {
       return "px-1 align-center text-sm rounded-3 disabled:bg-transparent hover:bg-gray-mid text-secondary disabled:text-gray-mid";
     }
 
@@ -107,8 +107,8 @@ export default {
       pageNext,
       disabledPrev,
       disabledNext,
-      getPrevNextButtonsClasses,
-      getButtonClasses,
+      prevNextButtonsClasses,
+      buttonClasses,
     };
   },
 };

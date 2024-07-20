@@ -1,28 +1,28 @@
 <template>
 <li 
-:class="setItemClass"
+:class="itemClass"
 class="pokemon-list-item gap-3 rounded-2 bg-main shadow-gray relative hover:shadow-secondary"
 >
     <img 
     v-if="pokemonData.sprites.front_default"
-    :class="setImgClass" 
+    :class="imgClass" 
     :src="pokemonData.sprites.front_default" 
     :alt="pokemonData.name"
     >
 
     <div :class="setInfoClass">
-        <div :class="setMainInfoClass">
+        <div :class="mainInfoClass">
             <span class="text-sm">Nº {{pokemonData.id}}</span>
             <span class="text-sm uppercase font-bold">{{pokemonData.name}}</span>
         </div>
 
-        <div :class="setTypesClass">
+        <div :class="typesClass">
             <div 
             v-for="(type, index) in pokemonData.types"
-            :class="[showTypes(type), setTypeClass]"
+            :class="[showTypes(type), typeClass]"
             :key="index"
             >
-                <span :class="setTypeSpanClass">
+                <span :class="typeSpanClass">
                 {{type.type.name}}
                 </span>
             </div>
@@ -54,12 +54,12 @@ export default {
 
         const { selectPokemon, currentView } = appData;
 
-        const setItemClass = computed(() => ({
+        const itemClass = computed(() => ({
             'flex items-center p-1': currentView.value === 'list',
             'flex p-2': currentView.value === 'grid',
         }));
 
-        const setImgClass = computed(() => ({
+        const imgClass = computed(() => ({
             'w-[40px] h-[40px]': currentView.value === 'list',
             'w-[80px] h-[80px]': currentView.value === 'grid',
         }));
@@ -69,22 +69,22 @@ export default {
             'flex flex-col gap-3': currentView.value === 'grid',
         }));
 
-        const setMainInfoClass = computed(() => ({
+        const mainInfoClass = computed(() => ({
             'flex gap-3': currentView.value === 'list',
             'flex flex-col gap-0': currentView.value === 'grid',
         }));
 
-        const setTypesClass = computed(() => ({
+        const typesClass = computed(() => ({
             'flex gap-2 ml-auto': currentView.value === 'list',
             'flex gap-2': currentView.value === 'grid',
         }));
 
-        const setTypeClass = computed(() => ({
+        const typeClass = computed(() => ({
             'w-3 h-3 m:w-auto m:h-auto px-0 text-main rounded-full m:rounded-1 uppercase text-sm': currentView.value === 'list',
             'w-auto h-auto px-0 text-main rounded-full m:rounded-1 uppercase text-sm': currentView.value === 'grid',
         }));
 
-        const setTypeSpanClass = computed(() => ({
+        const typeSpanClass = computed(() => ({
             'hidden m:block text-sm font-regular': currentView.value === 'list',
             'text-sm font-regular': currentView.value === 'grid',
         }));
@@ -95,13 +95,13 @@ export default {
         }
 
         return {
-            setItemClass,
-            setImgClass,
+            itemClass,
+            imgClass,
             setInfoClass,
-            setMainInfoClass,
-            setTypesClass,
-            setTypeClass,
-            setTypeSpanClass,
+            mainInfoClass,
+            typesClass,
+            typeClass,
+            typeSpanClass,
             showTypes,
             selectPokemon,
             currentView,

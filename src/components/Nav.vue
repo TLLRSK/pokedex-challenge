@@ -2,11 +2,11 @@
 
   <nav class="nav">
 
-    <button class="menu-toggler" :class="getMenuTogglerClasses" @click="toggleMenu">
+    <button class="menu-toggler" :class="menuTogglerClasses" @click="toggleMenu">
       <menu-icon />
     </button>
 
-    <ul ref="linkList" :class="getLinkListClasses">
+    <ul ref="linkList" :class="linkListClasses">
       <li class="link-list-item ml-auto" v-for="route in routes" :key="route.name">
         <router-link class="link text-main font-semibold uppercase hover:underline" :to="route.path" @click="closeMenu">{{route.name}}</router-link>
       </li>
@@ -36,14 +36,14 @@ export default {
 
     const linkList = ref<HTMLElement | null >(null);
 
-    const getMenuTogglerClasses = computed(() => {
+    const menuTogglerClasses = computed(() => {
       return [
         "flex m:hidden rounded-full",
         {"bg-white text-gray-dark": isChecked.value}
       ];
     });
 
-    const getLinkListClasses = computed(() => {
+    const linkListClasses = computed(() => {
       return [
         {
           'flex flex-col': isChecked.value,
@@ -86,8 +86,8 @@ export default {
     return {
       routes,
       isChecked,
-      getMenuTogglerClasses,
-      getLinkListClasses,
+      menuTogglerClasses,
+      linkListClasses,
       linkList,
       toggleMenu,
       closeMenu,
