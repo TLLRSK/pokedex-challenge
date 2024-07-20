@@ -18,37 +18,31 @@
 </template>
 
 <script lang="ts">
-import { inject, defineComponent, ref, watch, Ref } from "vue";
+
+import { inject, defineComponent, ref, watch } from "vue";
 import { Pagination, PokemonCard, PokemonList, ViewToggler } from "../util/index";
 import { AppData } from '../interfaces/appData';
 import { PokemonData } from '../interfaces/pokemons';
+import useGetCurrentPokemons from '../composables/useGetCurrentPokemons';
 
 export default defineComponent({
   name: "Pokedex",
   components: { PokemonList, PokemonCard, Pagination, ViewToggler },
   setup() {
 
-    const injectedData = inject<AppData>("appData");
+    const appData = inject<AppData>("appData");
     const currentPokemons = ref<PokemonData[]>([]);
 
-    if (!injectedData) {
+    if (!appData) {
       throw new Error("appData is not provided");
     }
 
-    const { pokedexData, currentPage, pokemonsPerPage } = injectedData;
- 
-    const getCurrentPokemons = (listRef: Ref<PokemonData[]>) : PokemonData[] => {
-        const list = listRef.value;
-        const start = (currentPage.value - 1) * pokemonsPerPage;
-        const end = start + pokemonsPerPage;
-        const result = list.slice(start, end);
-        return result;
-    };
+    const { pokedexData, currentPage, pokemonsPerPage } = appData;
 
     watch(
       () => [pokedexData.value, currentPage.value],
       () => {
-        currentPokemons.value = getCurrentPokemons(pokedexData);
+        currentPokemons.value = useGetCurrentPokemons(pokedexData, currentPage, pokemonsPerPage);
       },
       { immediate: true }
     );
