@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-light">
+  <main class="flex flex-col min-h-[calc(100dvh)] bg-gray-light transition">
 
     <view-toggler />
 
