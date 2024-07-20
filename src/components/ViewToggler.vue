@@ -8,7 +8,7 @@
         v-for="(view, index) in views"
         :key="index"
         :for="view.name"
-        class="view-option hover:bg-gray-200"
+        class="view-option flex items-center gap-1 px-1 rounded-0 cursor-pointer hover:bg-gray-200 has-[:checked]:bg-gray-dark has-[:checked]:text-main"
       >
         <component :is="view.icon" class="view-icon w-3 h-3" />
 
