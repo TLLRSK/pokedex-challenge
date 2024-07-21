@@ -1,5 +1,7 @@
 # POKEDEX CHALLENGE
 
+Último update: 21/07/2024
+
 ## Herramientas elegidas:
 Vite + Vue 3 + TypeScript + Tailwind CSS + Vitest
 
@@ -343,3 +345,5 @@ Dejo como material de estudio a futuro las siguientes cuestiones:
 - Typescript y Vue
 - Tailwind plugins
 - Tests unitarios en Vue
+
+* Añadidos a rama dev: composables, Tailwind variants y utilities, más tests.
