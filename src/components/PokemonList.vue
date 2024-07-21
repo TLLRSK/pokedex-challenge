@@ -40,12 +40,13 @@ export default {
     
     const { currentView } = appData;
     
-    const viewClass = computed(() => {
-      return [
-        'flex-1 xl:w-[calc(100%-372px)] mb-auto flex flex-col px-3 gap-3',
-        { 'm:grid m:grid-cols-2 l:grid-cols-3' : currentView.value === "grid" },
-      ];
-    });
+    const viewClass = computed(() => [
+      "flex-1 xl:w-[calc(100%-372px)] px-3 mb-auto gap-3",
+      {
+        'list-view--list' : currentView.value === 'list',
+        'list-view--grid' : currentView.value === "grid"
+      }
+    ]);
     
     return { currentView, viewClass };
   },

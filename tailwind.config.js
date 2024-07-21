@@ -8,7 +8,9 @@ const safeColors = typeColors.flatMap((color) => [`bg-${color}`, `text-${color}`
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: 'media',
-  safelist: [...safeColors],
+  safelist: [
+    ...safeColors
+  ],
   theme: {
     extend: {
       colors: {
@@ -90,5 +92,111 @@ export default {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function({ addVariant, addUtilities}) {
+      addVariant('item-img', '& [class="item__img"]');
+      addVariant('item-info', '& [class="item__info"]');
+      addVariant('item-main-info', '& [class="item__main-info"]');
+      addVariant('item-types', '& [class^="item__types"]');
+      addVariant('item-type', '& [class^="type"]');
+      addVariant('item-type-span', '& [class^="type"]>span');
+
+      const newUtilities = {
+        /* PokemonList Utilities */
+        '.list-view--list': {
+          display: 'flex',
+          flexDirection: 'column',
+        },
+        '.list-view--grid': {
+          display: 'grid',
+          gridTemplateColumns: '1fr',
+          '@screen m': {
+            gridTemplateColumns: 'repeat(2, 1fr)',
+          },
+          '@screen l': {
+            gridTemplateColumns: 'repeat(3, 1fr)',
+          }
+        },
+
+        /* PokemonListItem Utilities */
+        '.item-img--list': {
+          width: '40px',
+          height: '40px',
+        },
+        '.item-img--grid': {
+          width: '80px',
+          height: '80px',
+        },
+        '.item-info--list': {
+          display: 'flex',
+          flex: '1',
+          gap: 'theme("spacing.3")',
+        },
+        '.item-info--grid': {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'theme("spacing.3")',
+        },
+        '.main-info--list': {
+          display: 'flex',
+          gap: 'theme("spacing.3")',
+        },
+        '.main-info--grid': {
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 'theme("spacing.0")',
+        },
+        '.types--list': {
+          display: 'flex',
+          marginLeft: 'auto',
+          gap: 'theme("spacing.2")',
+        },
+        '.types--grid': {
+          display: 'flex',
+          gap: 'theme("spacing.2")',
+        },
+        '.type--list': {
+          width: 'theme("spacing.3")',
+          height: 'theme("spacing.3")',
+          padding: '0 theme("spacing.0")',
+          color: 'theme("colors.main")',
+          borderRadius: '50%',
+          textTransform: 'uppercase',
+          fontSize: 'theme("fontSize.sm")',
+          '@screen m': {
+            width: 'auto',
+            height: 'auto',
+            borderRadius: 'theme("borderRadius.1")',
+          }
+        },
+        '.type--grid': {
+          width: 'auto',
+          height: 'auto',
+          padding: '0 theme("spacing.0")',
+          color: 'theme("colors.main")',
+          borderRadius: 'theme("borderRadius.1")',
+          textTransform: 'uppercase',
+          fontSize: 'theme("fontSize.sm")',
+          '@screen m': {
+            borderRadius: 'theme("borderRadius.1")'
+          }
+        },
+        '.type-span--list': {
+          display: 'none',
+          fontSize: 'theme("fontSize.sm")',
+          fontWeight: '400',
+          '@screen m': {
+            display: 'block',
+          }
+        },
+        '.type-span--grid': {
+          fontSize: 'theme("fontSize.sm")',
+          fontWeight: '400',
+        }
+      };
+
+      addUtilities(newUtilities, ['responsive', 'hover']);
+    },
+    
+  ],
 }
