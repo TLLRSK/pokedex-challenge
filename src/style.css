@@ -78,4 +78,8 @@
     .dark .btn-page {
         @apply hover:bg-gray-dark;
     }
+
+    .dark .overlay {
+        @apply bg-black;
+    }
 }

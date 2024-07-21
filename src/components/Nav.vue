@@ -12,7 +12,7 @@
       </li>
     </ul>
 
-    <div v-if="isChecked" class="overlay fixed top-[0] right-[0] bottom-[0] left-[0] -z-[10]"></div>
+    <div v-if="isChecked" class="overlay fixed top-[0] right-[0] bottom-[0] left-[0] -z-[10] opacity-20"></div>
   </nav>
 
 </template>
